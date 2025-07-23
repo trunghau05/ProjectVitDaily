@@ -1,0 +1,69 @@
+<div class="navigation">
+    <div class="logo" (click)="navigateTo('')">
+        <div class="ic flex-center" style="background: none; padding: 0;">
+            <mat-icon style="font-size: 35px; height: 35px; width: 35px;">egg</mat-icon>
+        </div>
+        <span id="txt-logo">VIT DAILY</span>
+    </div>
+
+    <div class="nav-toggle" 
+        [style.background-color]="isActive('dashboard') ? 'white !important' : 'transparent'" 
+        [style.border-radius]="isActive('dashboard') ? '10px' : '0px'"
+        (click)="navigateTo('dashboard')">
+
+        <div class="ic flex-center">
+            <mat-icon [style.color]="isActive('dashboard') ? 'rgb(0, 89, 184)' : 'white'">dashboard</mat-icon>
+        </div>
+        <span id="txt" [style.color]="isActive('dashboard') ? 'rgb(0, 89, 184)' : 'white'">Dashboards</span>
+    </div>
+
+    <div class="person" (click)="togglePerson()">
+        <div class="ic flex-center" >
+            <mat-icon>person</mat-icon>
+        </div>
+        <span id="txt">Cá nhân</span>
+        <div class="ic-arrow flex-center" [style.transform]="isPersonOpen ? 'rotate(180deg)' : 'rotate(0deg)'">
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+    <div class="person-item" *ngIf="isPersonOpen">
+        <div class="nav-toggle"  [style.background-color]="isActive('note') ? 'rgba(191, 191, 191, 0.3) !important' : 'transparent'" (click)="navigateTo('note')">
+            <div class="ic flex-center">
+                <mat-icon>notes</mat-icon>
+            </div>
+            <span id="txt">Ghi chú</span>
+        </div>
+
+        <div class="nav-toggle">
+            <div class="ic flex-center">
+                <mat-icon>work</mat-icon>
+            </div>
+            <span id="txt">Công việc</span>
+        </div>
+    </div>
+
+    <div class="people" (click)="togglePeople()">
+        <div class="ic flex-center">
+            <mat-icon>groups</mat-icon>
+        </div>
+        <span id="txt">Nhóm</span>
+        <div class="ic-arrow flex-center" [style.transform]="isPeopleOpen ? 'rotate(180deg)' : 'rotate(0deg)'">
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+    </div>
+    <div class="people-item" *ngIf="isPeopleOpen">
+        <div class="nav-toggle">
+            <div class="ic flex-center">
+                <mat-icon>workspaces</mat-icon>
+            </div>
+            <span id="txt">Cộng tác</span>
+        </div>
+    </div>
+    
+    <div class="btn-setting">
+        <div class="ic flex-center">
+            <mat-icon>settings</mat-icon>
+        </div>
+        <span id="txt">Cài đặt</span>
+    </div>
+</div>
