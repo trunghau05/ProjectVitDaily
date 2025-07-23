@@ -1,7 +1,7 @@
 Django
 - pip install django
 - pip show django
-- python -m django startproject VitAdmin
+- python -m django startproject "tên dự án"
 - pip install django-cors-headers
 - pip show django-cors-headers
 - python manage.py makemigrations
