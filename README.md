@@ -10,5 +10,6 @@ Django
 - python manage.py startapp “chức năng”
 
 Angular
+- npm install
 - ng build
 - ng serve
