@@ -23,7 +23,7 @@ span {
     transition: 0.3s linear;
     align-items: flex-start;
 
-    .person, .people, .btn-setting, .nav-toggle, .logo{
+    .person, .people, .btn-setting, .btn-theme, .nav-toggle, .logo{
         border-radius: 10px;
         width: 100%;
         margin-left: 0;
@@ -37,7 +37,7 @@ span {
         display: block;
     }
 
-    .btn-setting {
+    .btn-setting, .btn-theme {
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -81,19 +81,19 @@ span {
         align-items: center;
     }
 
-    .nav-toggle, .btn-setting, .person, .people {
+    .nav-toggle, .btn-setting, .btn-theme, .person, .people {
         margin-left: 0;
     }
 }
 
-.people, .person, .btn-setting, .nav-toggle {
+.people, .person, .btn-setting, .btn-theme, .nav-toggle {
     display: flex;
     align-items: center;
     gap: 15px;
     cursor: pointer;
 }
 
-.btn-setting {
+.btn-setting, .btn-theme {
     margin-top: auto; 
     cursor: pointer;
 }
@@ -108,7 +108,7 @@ span {
     transition: transform 0.3s linear;
 }
 
-.btn-setting:hover, .nav-toggle:hover, .person-toggle:hover, .people:hover, .person:hover {
+.btn-setting:hover, .btn-theme:hover, .nav-toggle:hover, .person-toggle:hover, .people:hover, .person:hover {
     background-color: rgba(191, 191, 191, 0.3) !important;
     border-radius: 10px;
     transition: background 0.2s;
