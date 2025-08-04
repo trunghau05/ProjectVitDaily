@@ -10,6 +10,7 @@ Django
 - python manage.py startapp “chức năng”
 
 Angular
+- npm install -g @angular/cli
 - npm install
 - ng build
 - ng serve
