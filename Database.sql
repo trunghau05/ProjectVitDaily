@@ -43,7 +43,7 @@ CREATE TABLE Note (
     nt_content TEXT,
     nt_img VARCHAR(255),
     nt_pdf VARCHAR(255),
-    nt_date DATE,
+    nt_date DATETIME,
     us_id VARCHAR(20),
     FOREIGN KEY (us_id) REFERENCES User(us_id)
 );
