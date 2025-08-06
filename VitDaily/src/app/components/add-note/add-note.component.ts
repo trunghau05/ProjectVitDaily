@@ -9,5 +9,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './add-note.component.scss'
 })
 export class AddNoteComponent {
+  autoResize(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  }
   
+  formatText(command: string) {
+    document.execCommand(command, false);
+  }
 }

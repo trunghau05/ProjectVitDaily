@@ -1,23 +1,23 @@
 <div flexCenter class="add-note">
     <div class="note-list">
         <div class="note-item">
-            <label for="">Title:</label>
-            <input type="text" id="title">
+            <input type="text" id="title" placeholder="Tiêu đề">
         </div>
         <div class="note-item">
-            <label for="">Subtitle:</label>
-            <textarea type="text" id="subtitle"></textarea>
+            <input type="text" id="subtitle" placeholder="Mô tả">
         </div>
         <div class="note-item">
-            <label for="">Content:</label>
-            <textarea type="text" id="content"></textarea>
+            <textarea type="text" id="content" placeholder="Ghi chú..." (input)="autoResize($event)" style="margin-bottom: 5px;"></textarea>
         </div>
-        <div class="note-item">
-            <input type="file" id="file" placeholder="Chọn ảnh trong thư viện" multiple="true">
-        </div>
-        <div class="button">
-            <button>Quay lại</button>
-            <button>Lưu</button>
+        <div class="toolbar">
+            <div class="tool">
+                <button onclick="formatText('bold')"><b>B</b></button>
+                <button onclick="formatText('italic')"><i>I</i></button>
+                <button onclick="formatText('underline')"><u>U</u></button>
+            </div>
+            <div>
+                <button id="btn-save">Lưu</button>
+            </div>
         </div>
     </div>
 </div>
