@@ -12,6 +12,7 @@ Django
 Angular
 - npm install -g @angular/cli
 - npm install @angular/router
+- ng add @angular/material
 - npm install
 - ng build
 - ng serve

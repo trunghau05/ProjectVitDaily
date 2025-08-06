@@ -1,70 +1,143 @@
-.note-list {
-    width: 600px;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+.add-note-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
 
-input, textarea {
+.add-note {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+}
+
+.title {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;  
+    box-shadow: 10px 10px 0 rgba(255, 255, 255, 0.5);
+}
+
+.txt {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
-    border: none;
-    margin-top: 10px;
-    background: none;
+}
+
+.title input {
+    height: 20px;
+    width: calc(100% - 30px);
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    border: 1px solid rgba(126, 126, 126, 0.3);
+}
+
+.note {
+    background-color: white;  
+    box-shadow: 10px 10px 0 rgba(255, 255, 255, 0.5);     
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tool {
+    height: 20px;
+    width: calc(100% - 30px);
+    padding: 15px 15px 0 15px;
+    border-top: 1px solid rgba(126, 126, 126, 0.7);
+    border-left: 1px solid rgba(126, 126, 126, 0.7);
+    border-right: 1px solid rgba(126, 126, 126, 0.7);
     resize: none;
 }
 
-input:focus, textarea:focus {
-    outline: none;
+.take-note {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid rgba(126, 126, 126, 0.3);
+    border-radius: 15px;
 }
 
-#title {
-    font-size: 22px;
-    margin-top: 0;
+.take-note label {
+    border-bottom: 1px solid rgba(126, 126, 126, 0.3);
+    padding-bottom: 20px;
 }
 
-#subtitle {
-    font-size: 12px;
+.note-content textarea {
+    width: calc(100% - 30px);
+    padding: 15px 15px 0 15px;
+    border: 1px solid rgba(126, 126, 126, 0.7);
+    resize: none;
 }
 
-#content {
-    font-size: 16px;
+.more {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid rgba(126, 126, 126, 0.3);
+    border-radius: 15px;
+}
+
+.more input {
+    height: 20px;
+    width: calc(100% - 30px);
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border: 1px solid rgba(126, 126, 126, 0.3);
+}
+
+.img {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px dashed rgba(126, 126, 126, 0.7);
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+.img img {
+    height: 80px;
+    margin-bottom: 20px;
+    width: 80px;
+}
+
+.info {
+    width: 35%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .toolbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    gap: 20px;
+    justify-content: flex-end;
 }
 
-.tool {
-    display: flex;
-    gap: 15px;
+.toolbar button {
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px solid rgba(126, 126, 126, 0.7);
 }
 
-.tool button {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+.owner {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;  
+    box-shadow: 10px 10px 0 rgba(255, 255, 255, 0.5); 
 }
 
-.tool button:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-#btn-save {
-    height: 30px;
-    width: 60px;
-    border: none;
-    background: none;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#btn-save:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+label {
+    font-size: 14px;
 }
