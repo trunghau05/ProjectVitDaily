@@ -1,0 +1,45 @@
+.add-note {
+    height: 100vh;
+    width: 100%;
+} 
+
+.note-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.note-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.note-item input, textarea {
+    border-radius: 10px;
+    padding: 10px;
+    width: 400px;
+    border: 2px solid #333;
+}
+
+#subtitle {
+    height: 70px;
+    word-wrap: break-word;
+}
+
+#content {
+    height: 300px;
+    word-wrap: break-word;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button button {
+    background: none;
+    border-radius: 10px;
+    height: 40px;
+    width: 90px;
+}
