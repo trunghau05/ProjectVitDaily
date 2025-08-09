@@ -2,6 +2,16 @@
     <app-navbar></app-navbar>
 
     <div flexCenter class="content">
-
+      <div class="toolbar">
+        <div class="ic-tool">
+          <app-search-bar placeholder="Tìm kiếm ghi chú..." (searchChange)="onSearch($event)" *ngIf="isSearch"></app-search-bar>
+          <div class="ic" (click)="toggleSearch()">
+              <mat-icon>search</mat-icon>
+          </div>
+          <div class="ic">
+              <mat-icon>filter_list</mat-icon>
+          </div>
+        </div>
+      </div>
     </div>
 </div>

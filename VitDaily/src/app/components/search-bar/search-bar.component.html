@@ -1,1 +1,5 @@
-<p>search-bar works!</p>
+<div class="searchbar" flexCenter>
+    <div class="search-input">
+        <input type="text" [placeholder]="placeholder" (input)="onSearch($event)">
+    </div>
+</div>

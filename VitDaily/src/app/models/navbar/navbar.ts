@@ -1,2 +1,2 @@
-export class Navbar {
+export interface Navbar {
 }

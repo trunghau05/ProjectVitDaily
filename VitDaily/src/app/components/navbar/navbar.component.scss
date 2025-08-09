@@ -9,7 +9,7 @@ span {
     height: calc(100vh - 40px);
     width: 65px;
     border-radius: 10px;
-    transition: 0.3s linear;
+    transition: 0.3s ease;
     gap: 15px;
 
     .person, .people {
@@ -20,7 +20,7 @@ span {
 
 .navigation:hover {
     width: 200px;
-    transition: 0.3s linear;
+    transition: 0.3s ease;
     align-items: flex-start;
 
     .person, .people, .btn-setting, .btn-theme, .nav-toggle, .logo{

@@ -54,4 +54,8 @@ body {
     padding: 20px;
     overflow: auto;
     scrollbar-width: none;
+    gap: 30px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
 }
