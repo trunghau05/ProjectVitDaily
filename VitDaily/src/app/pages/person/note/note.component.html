@@ -1,15 +1,45 @@
 <div class="container flex-center">
     <app-navbar></app-navbar>
 
-    <div flexCenter class="content">
+    <div class="content">
       <div class="toolbar">
-        <div class="ic-tool">
+        <div flexCenter class="ic-tool">
           <app-search-bar placeholder="Tìm kiếm ghi chú..." (searchChange)="onSearch($event)" *ngIf="isSearch"></app-search-bar>
           <div class="ic" (click)="toggleSearch()">
               <mat-icon>search</mat-icon>
           </div>
           <div class="ic">
               <mat-icon>filter_list</mat-icon>
+          </div>
+          <div class="ic" (click)="navigateTo('add-note')">
+            <mat-icon>add</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <div flexCenter class="note-container">
+        <div class="note-list">
+          <div class="note-item" *ngFor="let note of searchedNotes">
+            <div class="info">
+              <div flexCenter class="img">
+                <img src="" alt="">
+              </div>
+              <span>{{note.us_id}}</span>
+            </div>
+            <div class="item">
+              <div class="title">
+                <span>{{note.nt_title}}</span>
+              </div>
+              <div class="note">
+                <span>{{note.nt_content}}</span>
+              </div>
+              <div class="date">
+                <span>{{note.nt_date | formatDate}}</span>
+                <div class="ic">
+                  <mat-icon>delete</mat-icon>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

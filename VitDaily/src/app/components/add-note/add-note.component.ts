@@ -3,10 +3,11 @@ import { FlexCenterDirective } from '../../directives/flex-center/flex-center.di
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-add-note',
-  imports: [FlexCenterDirective, CommonModule, MatIconModule, FormatDatePipe],
+  imports: [FlexCenterDirective, CommonModule, MatIconModule, FormatDatePipe, NavbarComponent],
   templateUrl: './add-note.component.html',
   styleUrl: './add-note.component.scss'
 })

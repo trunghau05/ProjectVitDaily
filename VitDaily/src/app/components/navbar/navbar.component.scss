@@ -23,7 +23,7 @@ span {
     transition: 0.3s ease;
     align-items: flex-start;
 
-    .person, .people, .btn-setting, .btn-theme, .nav-toggle, .logo{
+    .person, .people, .btn-setting, .btn-account, .nav-toggle, .logo{
         border-radius: 10px;
         width: 100%;
         margin-left: 0;
@@ -37,7 +37,7 @@ span {
         display: block;
     }
 
-    .btn-setting, .btn-theme {
+    .btn-setting, .btn-account {
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -81,19 +81,19 @@ span {
         align-items: center;
     }
 
-    .nav-toggle, .btn-setting, .btn-theme, .person, .people {
+    .nav-toggle, .btn-setting, .btn-account, .person, .people {
         margin-left: 0;
     }
 }
 
-.people, .person, .btn-setting, .btn-theme, .nav-toggle {
+.people, .person, .btn-setting, .btn-account, .nav-toggle {
     display: flex;
     align-items: center;
     gap: 15px;
     cursor: pointer;
 }
 
-.btn-setting, .btn-theme {
+.btn-setting, .btn-account {
     margin-top: auto; 
     cursor: pointer;
 }
@@ -104,11 +104,10 @@ span {
     height: 30px;
     border-radius: 10px;
     margin-left: auto;
-    margin-right: 5px;
     transition: transform 0.3s linear;
 }
 
-.btn-setting:hover, .btn-theme:hover, .nav-toggle:hover, .person-toggle:hover, .people:hover, .person:hover {
+.btn-setting:hover, .btn-account:hover, .nav-toggle:hover, .person-toggle:hover, .people:hover, .person:hover {
     background-color: rgba(191, 191, 191, 0.3) !important;
     border-radius: 10px;
     transition: background 0.2s;

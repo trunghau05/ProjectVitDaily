@@ -1,72 +1,78 @@
-<div class="add-note-container">
-    <div class="add-note">
-        <div flexCenter class="title">
-            <div class="txt">
-                <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Tiêu đề</label>
-                <div>
-                    <input type="text" placeholder="Nhập tiêu đề ghi chú...">
+<div class="container flex-center">
+    <app-navbar></app-navbar>
+
+    <div class="content">
+      <div class="add-note-container">
+        <div class="add-note">
+            <div flexCenter class="title">
+                <div class="txt">
+                    <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Tiêu đề</label>
+                    <div>
+                        <input type="text" placeholder="Nhập tiêu đề ghi chú...">
+                    </div>
+                </div>
+            </div>
+            <div class="note">
+                <div class="take-note">
+                    <label for="" style="font-weight: 550;">Ghi chú</label>
+                    <div class="note-content">
+                        <div class="tool"></div>
+                        <textarea name="" id="" placeholder="Nhập nội dung ghi chú..." (input)="autoResize($event)"></textarea>
+                    </div>
+                </div>
+                <div class="more">
+                    <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Mô tả & Hình ảnh</label>
+                    <div class="subtitle">
+                        <label for="">Mô tả</label>
+                        <div style="margin-top: 10px">
+                            <input type="text" placeholder="Nhập mô tả hình ảnh">
+                        </div>
+                    </div>
+                    <div class="img-box">
+                        <label for="">Hình ảnh</label>
+                        <div class="img">
+                            <div style="display: flex; gap: 20px; overflow: auto;">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                            </div>
+                            <input type="file" placeholder="Tải lên hình ảnh">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="note">
-            <div class="take-note">
-                <label for="" style="font-weight: 550;">Ghi chú</label>
-                <div class="note-content">
-                    <div class="tool"></div>
-                    <textarea name="" id="" placeholder="Nhập nội dung ghi chú..." (input)="autoResize($event)"></textarea>
-                </div>
+
+        <div class="info">
+            <div class="toolbar">
+                <button id="close">PDF</button>
+                <button id="close">Hủy</button>
+                <button id="save">Lưu</button>
             </div>
-            <div class="more">
-                <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Mô tả & Hình ảnh</label>
-                <div class="subtitle">
-                    <label for="">Mô tả</label>
-                    <div style="margin-top: 10px">
-                        <input type="text" placeholder="Nhập mô tả hình ảnh">
-                    </div>
-                </div>
-                <div class="img-box">
-                    <label for="">Hình ảnh</label>
-                    <div class="img">
-                        <div style="display: flex; gap: 20px; overflow: auto;">
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
-                            <img src="" alt="">
+            <div class="owner">
+                <div class="info-owner">
+                    <div>
+                        <label for="">Sở hữu</label>
+                        <div class="user">
+                            <div>
+                                <img src="" alt="">
+                            </div>
+                            <div class="name">
+                                <span>Nguyễn Văn A</span>
+                                <mat-icon>arrow_drop_down</mat-icon>
+                            </div>
                         </div>
-                        <input type="file" placeholder="Tải lên hình ảnh">
+                    </div>
+                    <div>
+                        <label for="">Ngày tạo</label>
+                        <div class="date">
+                            <span>{{date | formatDate}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="info">
-        <div class="toolbar">
-            <button id="close">PDF</button>
-            <button id="close">Hủy</button>
-            <button id="save">Lưu</button>
-        </div>
-        <div class="owner">
-            <div class="info-owner">
-                <div>
-                    <label for="">Sở hữu</label>
-                    <div class="user">
-                        <div>
-                            <img src="" alt="">
-                        </div>
-                        <div class="name">
-                            <span>Nguyễn Văn A</span>
-                            <mat-icon>arrow_drop_down</mat-icon>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label for="">Ngày tạo</label>
-                    <div class="date">
-                        <span>{{date | formatDate}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
