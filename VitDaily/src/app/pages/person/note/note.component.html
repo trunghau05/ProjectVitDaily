@@ -8,11 +8,23 @@
           <div class="ic" (click)="toggleSearch()">
               <mat-icon>search</mat-icon>
           </div>
-          <div class="ic">
+          <div class="ic" (click)="toggleFilter()">
               <mat-icon>filter_list</mat-icon>
           </div>
           <div class="ic" (click)="navigateTo('add-note')">
             <mat-icon>add</mat-icon>
+          </div>
+        </div>
+        <div flexCenter class="filter-container" *ngIf="isFilter">
+          <div class="filter-item">
+            <div
+              flexCenter
+              class="ft-item"
+              [class.active]="select.active"
+              *ngFor="let select of selects; let i = index"
+              (click)="filterOption(i)">
+              <span>{{ select.label }}</span>
+            </div>
           </div>
         </div>
       </div>

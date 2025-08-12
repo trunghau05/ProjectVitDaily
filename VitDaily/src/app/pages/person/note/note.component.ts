@@ -18,7 +18,14 @@ export class NoteComponent implements OnInit{
   notes: Note[] = [];
   searchedNotes: Note[] = [];
 
-  isSearch = false;
+  isSearch = true;
+  isFilter = true;
+
+  selects = [
+    { options: ['A-Z', 'Z-A'], index: -1, label: 'A-Z', active: false },
+    { options: ['Mới nhất', 'Cũ nhất'], index: -1, label: 'Mới nhất', active: false },
+    { options: ['Ngày', 'Tháng', 'Năm'], index: -1, label: 'Ngày', active: false }
+  ];
 
   ngOnInit(): void {
     this.notes = [
@@ -141,8 +148,81 @@ export class NoteComponent implements OnInit{
   toggleSearch() {
     this.isSearch = !this.isSearch;
   }
+  
+  toggleFilter() {
+    this.isFilter = !this.isFilter;
+  }
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
+  }
+
+  filterOption(i: number) {
+    const select = this.selects[i];
+    const totalOptions = select.options.length;
+
+    if (select.index === -1) {
+      select.index = 0;
+      select.active = true;
+    }
+    else if (select.index < totalOptions - 1) {
+      select.index++;
+    }
+    else {
+      select.index = -1;
+      select.active = false;
+    }
+
+    select.label = select.index === -1 ? select.options[0] : select.options[select.index];
+
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    let filtered = [...this.notes];
+
+    const azSelect = this.selects[0];
+    if (azSelect.index !== -1) {
+      if (azSelect.options[azSelect.index] === 'A-Z') {
+        filtered.sort((a, b) => a.nt_title.localeCompare(b.nt_title));
+      } else if (azSelect.options[azSelect.index] === 'Z-A') {
+        filtered.sort((a, b) => b.nt_title.localeCompare(a.nt_title));
+      }
+    }
+
+    const sortSelect = this.selects[1];
+    if (sortSelect.index !== -1) {
+      if (sortSelect.options[sortSelect.index] === 'Mới nhất') {
+        filtered.sort((a, b) => new Date(b.nt_date).getTime() - new Date(a.nt_date).getTime());
+      } else if (sortSelect.options[sortSelect.index] === 'Cũ nhất') {
+        filtered.sort((a, b) => new Date(a.nt_date).getTime() - new Date(b.nt_date).getTime());
+      }
+    }
+
+    const dateSelect = this.selects[2];
+    if (dateSelect.index !== -1) {
+      const now = new Date();
+      if (dateSelect.options[dateSelect.index] === 'Ngày') {
+        filtered = filtered.filter(n => {
+          const noteDate = new Date(n.nt_date);
+          return noteDate.toDateString() === now.toDateString();
+        });
+      }
+      else if (dateSelect.options[dateSelect.index] === 'Tháng') {
+        filtered = filtered.filter(n => {
+          const noteDate = new Date(n.nt_date);
+          return noteDate.getMonth() === now.getMonth() &&
+                noteDate.getFullYear() === now.getFullYear();
+        });
+      }
+      else if (dateSelect.options[dateSelect.index] === 'Năm') {
+        filtered = filtered.filter(n => {
+          const noteDate = new Date(n.nt_date);
+          return noteDate.getFullYear() === now.getFullYear();
+        });
+      }
+    }
+
+    this.searchedNotes = filtered;
   }
 }
