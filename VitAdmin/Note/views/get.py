@@ -1,5 +1,5 @@
 from rest_framework import generics
-from ..models import Note
+from Common.models import Note
 from ..serializers import NoteSerializer
 
 class NoteList(generics.ListCreateAPIView):
