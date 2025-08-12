@@ -59,3 +59,8 @@ body {
     display: flex;
     align-items: center;
 }
+
+input:focus, textarea:focus {
+    border: none;
+    outline: none;
+}
