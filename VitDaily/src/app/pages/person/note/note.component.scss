@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     gap: 20px;
     width: 100%;
 }
@@ -134,4 +135,29 @@ mat-icon {
 
 .date .ic:hover {
     background-color: rgb(196, 0, 0);
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.ft-item {
+  height: 25px;
+  width: 90px;
+  font-weight: 550;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.7);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.ft-item.active {
+    background-color: rgba(1,47,95,1);
+    color: white;
 }

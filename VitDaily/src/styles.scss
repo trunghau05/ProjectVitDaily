@@ -59,3 +59,7 @@ body {
     display: flex;
     align-items: center;
 }
+
+input, textarea {
+    outline: none;
+}
