@@ -5,7 +5,7 @@ from Common.models import Note, User
 from django.utils.dateparse import parse_datetime
 
 @api_view(['PATCH'])
-def update_note(request, nt_id):
+def UpdateNote(request, nt_id):
     try:
         note = Note.objects.get(nt_id=nt_id)
     except Note.DoesNotExist:

@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 @api_view(['POST'])
-def add_note(request):
+def AddNote(request):
     try:
         # Lấy tổng số Note hiện tại
         total_notes = Note.objects.count()

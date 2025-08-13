@@ -105,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'vitdaily', 
         'USER': 'root',      
-        'PASSWORD': 'Tanthu2709', 
+        'PASSWORD': '123456', 
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

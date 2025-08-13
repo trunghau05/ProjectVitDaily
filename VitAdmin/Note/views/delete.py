@@ -4,7 +4,7 @@ from rest_framework import status
 from Common.models import Note
 
 @api_view(['DELETE'])
-def delete_note(request, nt_id):
+def DeleteNote(request, nt_id):
     try:
         note = Note.objects.get(nt_id=nt_id)
         note.delete()
