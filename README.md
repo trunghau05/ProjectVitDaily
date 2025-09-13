@@ -13,6 +13,8 @@ Angular
 - npm install -g @angular/cli
 - npm install @angular/router
 - ng add @angular/material
+- npm install @angular/cdk
+- npm install axios
 - npm install
 - ng build
 - ng serve
