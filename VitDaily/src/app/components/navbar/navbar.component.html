@@ -28,21 +28,23 @@
     </div>
     <div class="person-item" *ngIf="isPersonOpen">
         <div class="nav-toggle"  
-            [style.background-color]="isActive('note') ? 'white !important' : 'transparent'"
-            [style.border-radius]="isActive('note') ? '10px' : '10px'"
+            [style.background-color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'white !important' : 'transparent'"
+            [style.border-radius]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? '10px' : '10px'"
             (click)="navigateTo('note')">
-
             <div class="ic flex-center">
-                <mat-icon  [style.color]="isActive('note') ? 'rgb(0, 89, 184)' : 'white'">notes</mat-icon>
+                <mat-icon [style.color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'rgb(0, 89, 184)' : 'white'">notes</mat-icon>
             </div>
-            <span id="txt" [style.color]="isActive('note') ? 'rgb(0, 89, 184)' : 'white'">Ghi chú</span>
+            <span id="txt" [style.color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'rgb(0, 89, 184)' : 'white'">Ghi chú</span>
         </div>
 
-        <div class="nav-toggle">
+        <div class="nav-toggle"
+            [style.background-color]="isActive('task') ? 'white !important' : 'transparent'"
+            [style.border-radius]="isActive('task') ? '10px' : '10px'"
+            (click)="navigateTo('task')">
             <div class="ic flex-center">
-                <mat-icon>work</mat-icon>
+                <mat-icon [style.color]="isActive('task') ? 'rgb(0, 89, 184)' : 'white'">work</mat-icon>
             </div>
-            <span id="txt">Công việc</span>
+            <span id="txt" [style.color]="isActive('task') ? 'rgb(0, 89, 184)' : 'white'">Công việc</span>
         </div>
     </div>
 

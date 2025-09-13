@@ -1,0 +1,37 @@
+<div class="container flex-center">
+    <app-navbar></app-navbar>
+
+    <div class="content">
+      <div class="btn-container" flexCenter>
+        <div flexCenter class="btn" [style.border]="isKanban ? '1px solid rgb(0, 89, 184, 0.5)' : '1px solid rgba(126, 126, 126, 0.5)'">
+            <mat-icon
+              [style.color]="isKanban ? 'rgb(0, 89, 184)' : 'black'"
+            >view_kanban</mat-icon>
+            <span 
+              [style.display]="isKanban ? 'block' : 'none'"
+              [style.color]="isKanban ? 'rgb(0, 89, 184)' : 'black'"
+              >Kanban</span>
+        </div>
+        <div flexCenter class="btn">
+            <mat-icon>sort</mat-icon>
+            <span>List</span>
+        </div>  
+      </div>
+
+      <div class="kanban-container" flexCenter *ngIf="isKanban">
+        <div class="todo board">
+
+        </div>
+        <div class="doing board">
+
+        </div>
+        <div class="done board">
+
+        </div>
+      </div>
+
+      <div class="list-container" flexCenter *ngIf="isList">
+        
+      </div>
+    </div>
+</div>
