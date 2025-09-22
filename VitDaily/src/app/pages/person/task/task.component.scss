@@ -1,37 +1,199 @@
 .btn-container {
-    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    font-weight: 550;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border: 1px solid rgba(126, 126, 126, 0.5);
+    cursor: pointer;
+    transition: all ease-out 300ms;
+}
+
+.ic:hover {
+    background-color: rgba(1, 47, 95, 1);
+    transition: all ease-in 300ms;
+
+    mat-icon {
+        color: white;
+        transition: all ease-in 300ms;
+    }
+}
+
+.ic mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
 }
 
 .btn {
     gap: 10px;
     padding: 10px;
-    border: 1px solid rgba(126, 126, 126, 0.5);
     border-radius: 10px;
     cursor: pointer;
-}
-
-.btn:hover {
-    span {
-        display: block;
-    }
 }
 
 .btn span {
     display: none;
     font-weight: 550;
+    color: white;
     font-size: 14px;
+}
+
+.tab {
+    gap: 20px;
 }
 
 .kanban-container {
     width: 100%;
-    gap: 40px;
+    gap: 50px;
+    flex-wrap: wrap;
 }
 
 .board {
     height: calc(100vh - 220px);
-    width: 30%;
+    width: 25%;
+}
+
+.header {
+    position: relative;
+    padding: 12px 10px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(169, 169, 169, 0.5);
+    background-color: white;
+}
+
+.header h5, span {
+    color: black;
+}
+
+.header h5 {
+    font-size: 15px;
+    font-weight: 550;
+}
+
+.header span {
+    font-size: 12px;
+}
+
+.count {
+    position: absolute;
+    right: 10px;
+    height: 20px;
+    width: 20px;
+    border: 1px solid rgba(68, 68, 68, 0.6);
+    border-radius: 50%;
+}
+
+.circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.board-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 230px);
+    overflow: auto;
+    padding: 0;
+    scrollbar-width: none;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.board-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 20px;
     border-radius: 15px;
+    border: 1.5px solid rgba(169, 169, 169, 0.5);
     background-color: white;
+    cursor: pointer;
+}
+
+.board-item:hover {
+    span {
+        -webkit-line-clamp: 4;
+    }
+}
+
+.board-item h5 {
+    font-weight: 550;
+    font-size: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.board-item span {
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 15px;
+  background: white;
+  transform: rotate(2deg);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.board-content.cdk-drop-list-dragging .board-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.list-container {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(239, 239, 239);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 13px 55px;
+}
+
+.list-header span {
+    font-size: 14px;
+    font-weight: 550;
+}
+
+.list-table {
+    height: calc(100vh - 220px);
+    border-bottom-left-radius: 10px;
+    background-color: white;
+    border-bottom-right-radius: 10px;
 }

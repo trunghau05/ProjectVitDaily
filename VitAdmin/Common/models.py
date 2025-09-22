@@ -82,7 +82,7 @@ class Task(models.Model):
     ts_end = models.DateField()
     ts_note = models.TextField(blank=True, null=True)
     us = models.ForeignKey(User, on_delete=models.CASCADE)
-    ws = models.ForeignKey(WorkSpace, on_delete=models.CASCADE)
+    ws = models.ForeignKey(WorkSpace, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.ts_title
@@ -130,3 +130,24 @@ class UsedTask(models.Model):
 
     def __str__(self):
         return f"{self.us.us_name} - {self.ts.ts_title}"
+
+
+class History(models.Model):
+    user_input = models.TextField()
+    intent = models.CharField(max_length=50, blank=True, null=True)
+    ai_output = models.TextField(blank=True, null=True, db_collation='utf8mb4_unicode_ci')
+    created_at = models.DateTimeField(auto_now_add=True)
+    us = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user_input} - {self.ai_output}"
+
+
+class Feedback(models.Model):
+    fb_id = models.CharField(primary_key=True, max_length=20)
+    intent = models.CharField(max_length=50, blank=True, null=True)
+    feedback_text = models.TextField(db_collation='utf8mb4_unicode_ci')
+    us = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.feedback_text

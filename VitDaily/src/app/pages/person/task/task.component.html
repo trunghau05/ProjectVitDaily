@@ -2,36 +2,125 @@
     <app-navbar></app-navbar>
 
     <div class="content">
-      <div class="btn-container" flexCenter>
-        <div flexCenter class="btn" [style.border]="isKanban ? '1px solid rgb(0, 89, 184, 0.5)' : '1px solid rgba(126, 126, 126, 0.5)'">
-            <mat-icon
-              [style.color]="isKanban ? 'rgb(0, 89, 184)' : 'black'"
-            >view_kanban</mat-icon>
-            <span 
-              [style.display]="isKanban ? 'block' : 'none'"
-              [style.color]="isKanban ? 'rgb(0, 89, 184)' : 'black'"
-              >Kanban</span>
+      <div class="btn-container">
+        <div class="tab" flexCenter>
+          <div flexCenter class="btn" (click)="toggleList()" [style.background-color]="isList ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isList ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
+            <mat-icon [style.color]="isList ? 'white' : 'black'">sort</mat-icon>
+            <span [style.display]="isList ? 'block' : 'none'" [style.color]="isList ? 'white' : 'black'">List</span>
+          </div>  
+          <div flexCenter class="btn" (click)="toggleKanban()" [style.background-color]="isKanban ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isKanban ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
+              <mat-icon [style.color]="isKanban ? 'white' : 'black'">view_kanban</mat-icon>
+              <span [style.display]="isKanban ? 'block' : 'none'" [style.color]="isKanban ? 'white' : 'black'">Kanban</span>
+          </div>
         </div>
-        <div flexCenter class="btn">
-            <mat-icon>sort</mat-icon>
-            <span>List</span>
-        </div>  
+        <div class="tool" flexCenter style="gap: 20px;">
+          <app-search-bar placeholder="Tìm kiếm ghi chú..." *ngIf="isList"></app-search-bar>
+          <div class="ic">
+            <mat-icon>search</mat-icon>
+          </div>
+          <div class="ic">
+            <mat-icon>add</mat-icon>
+          </div>
+        </div>
       </div>
 
       <div class="kanban-container" flexCenter *ngIf="isKanban">
-        <div class="todo board">
-
+        <div class="todo board" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[doneList, doingList]" id="todoList">
+          <div class="header td" flexCenter>
+            <div flexCenter>
+              <h5>Công việc</h5>
+            </div>
+            <div class="count" flexCenter>
+              <span>8</span>
+            </div>
+          </div>
+          <div class="board-content">
+            <div class="board-item" *ngFor="let task of todo" cdkDrag>
+              <div style="display: flex; align-items: center; justify-content: space-between;"> 
+                <div class="task-title">
+                  <h5>{{task.title}}</h5>
+                </div>
+                <div class="task-avatar">
+                  <div class="circle"></div>
+                </div>
+              </div>
+              <div class="task-note">
+                <span>{{task.content}}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="doing board">
 
+        <div class="doing board" cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing" (cdkDropListDropped)="drop($event)"  [cdkDropListConnectedTo]="[todoList, doneList]" id="doingList">
+          <div class="header doi" flexCenter>
+            <div flexCenter>
+              <h5>Đang làm</h5>
+            </div>
+            <div class="count" flexCenter>
+              <span>5</span>
+            </div>
+          </div>
+          <div class="board-content">
+            <div class="board-item" *ngFor="let task of doing" cdkDrag>
+              <div style="display: flex; align-items: center; justify-content: space-between;"> 
+                <div class="task-title">
+                  <h5>{{task.title}}</h5>
+                </div>
+                <div class="task-avatar">
+                  <div class="circle"></div>
+                </div>
+              </div>
+              <div class="task-note">
+                <span>{{task.content}}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="done board">
 
+        <div class="done board" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todoList, doingList]" id="doneList">
+          <div class="header don" flexCenter>
+            <div flexCenter>
+              <h5>Hoàn thành</h5>
+            </div>
+            <div class="count" flexCenter>
+              <span>3</span>
+            </div>
+          </div>
+          <div class="board-content">
+            <div class="board-item" *ngFor="let task of done" cdkDrag>
+              <div style="display: flex; align-items: center; justify-content: space-between;"> 
+                <div class="task-title">
+                  <h5>{{task.title}}</h5>
+                </div>
+                <div class="task-avatar">
+                  <div class="circle"></div>
+                </div>
+              </div>
+              <div class="task-note">
+                <span>{{task.content}}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="list-container" flexCenter *ngIf="isList">
-        
+      <div class="list-container" *ngIf="isList">
+        <div class="list-header">
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span style="width: 15%;">Tiêu đề</span>
+            <span style="width: 10%;">Mô tả</span>
+            <span>Được giao</span>
+            <span>Bắt đầu</span>
+            <span>Kết thúc</span>
+            <span>Trạng thái</span>
+            <span>Công cụ</span>
+          </div>
+        </div>
+        <div class="list-table">
+          <div class="list-item">
+
+          </div>
+        </div>
       </div>
     </div>
 </div>
