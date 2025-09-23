@@ -6,4 +6,5 @@ urlpatterns = [
     path('user/', include('User.urls')),
     path('task/', include('Task.urls')),
     path('note/', include('Note.urls')), 
+    path('vitai/', include('VitAi.urls')),
 ]

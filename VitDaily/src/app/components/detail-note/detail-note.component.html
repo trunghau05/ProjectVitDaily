@@ -1,1 +1,78 @@
-<p>detail-note works!</p>
+<div class="container flex-center">
+    <app-navbar></app-navbar>
+
+    <div class="content">
+        <div class="detail-note-container">
+            <div class="detail-note">
+                <div flexCenter class="title">
+                    <div class="txt">
+                        <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Tiêu đề</label>
+                        <div>
+                            <input type="text" placeholder="Nhập tiêu đề ghi chú..." [(ngModel)]="note.nt_title">
+                        </div>
+                    </div>
+                </div>
+                <div class="note">
+                    <div class="take-note">
+                        <label for="" style="font-weight: 550;">Ghi chú</label>
+                        <div class="note-content">
+                            <div class="tool"></div>
+                            <textarea name="" id="" placeholder="Nhập nội dung ghi chú..." (input)="autoResize($event)" [(ngModel)]="newNote.nt_content"></textarea>
+                        </div>
+                    </div>
+                    <div class="more">
+                        <label for="" style="border-bottom: 1px solid rgba(126, 126, 126, 0.3); padding-bottom: 20px; font-weight: 550;">Mô tả & Hình ảnh</label>
+                        <div class="subtitle">
+                            <label for="">Mô tả</label>
+                            <div style="margin-top: 10px">
+                                <input type="text" placeholder="Nhập mô tả ghi chú" [(ngModel)]="newNote.nt_subtitle">
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <label for="">Hình ảnh</label>
+                            <div class="img">
+                                <div style="display: flex; gap: 20px; overflow: auto;">
+                                    <img src="" alt="">
+                                    <img src="" alt="">
+                                    <img src="" alt="">
+                                    <img src="" alt="">
+                                </div>
+                                <input type="file" placeholder="Tải lên hình ảnh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info">
+                <div class="toolbar">
+                    <button id="pdf">PDF</button>
+                    <button id="close" (click)="close()">Hủy</button>
+                    <button id="save" (click)="updateNote()">Lưu</button>
+                </div>
+                <div class="owner">
+                    <div class="info-owner">
+                        <div>
+                            <label for="">Sở hữu</label>
+                            <div class="user">
+                                <div>
+                                    <img src="" alt="">
+                                </div>
+                                <div class="name">
+                                    <span>Nguyễn Văn A</span>
+                                    <mat-icon>arrow_drop_down</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="">Ngày tạo</label>
+                            <div class="date">
+                                <span>{{newNote.nt_date | formatDate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

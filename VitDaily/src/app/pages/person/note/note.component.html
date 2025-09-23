@@ -17,12 +17,7 @@
         </div>
         <div flexCenter class="filter-container" *ngIf="isFilter">
           <div class="filter-item">
-            <div
-              flexCenter
-              class="ft-item"
-              [class.active]="select.active"
-              *ngFor="let select of selects; let i = index"
-              (click)="filterOption(i)">
+            <div flexCenter class="ft-item" [class.active]="select.active" *ngFor="let select of selects; let i = index" (click)="filterOption(i)">
               <span>{{ select.label }}</span>
             </div>
           </div>
@@ -31,7 +26,7 @@
 
       <div flexCenter class="note-container">
         <div class="note-list">
-          <div class="note-item" *ngFor="let note of searchedNotes">
+          <div class="note-item" *ngFor="let note of displayedNotes" (click)="detailNote(note.nt_id)">
             <div class="info">
               <div flexCenter class="img">
                 <img src="" alt="">
@@ -47,12 +42,41 @@
               </div>
               <div class="date">
                 <span>{{note.nt_date | formatDate}}</span>
-                <div class="ic">
+                <div class="ic" (click)="toggleConfirm(note.nt_id); $event.stopPropagation()">
                   <mat-icon>delete</mat-icon>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="confirm-backdrop" *ngIf="isConfirm" (click)="closeConfirm()"></div>
+      <div class="confirm-container" flexCenter *ngIf="isConfirm">
+        <div class="confirm-item" flexCenter>
+          <div class="confirm-header">
+            <div class="icon" flexCenter>
+              <mat-icon style="color: rgb(197, 179, 47); height: 20px; width: 20px; font-size: 20px; ">priority_high</mat-icon>
+            </div>
+            <h3>Cảnh báo</h3>
+          </div>
+          <span>Hành động này sẽ xóa vĩnh viễn ghi chú của bạn!</span>
+          <div class="btn">
+            <button (click)="closeConfirm()">Hủy</button>
+            <button (click)="deleteNote()">Xác nhận</button>
+          </div>
+        </div>
+      </div>
+
+      <div flexCenter class="pagination">
+        <div class="btn-prev" (click)="prevPage()" [style.cursor]="currentPage === 1 ? 'not-allowed' : 'pointer'">
+          <mat-icon [style.opacity]="currentPage === 1 ? '0.5' : '1'">keyboard_double_arrow_left</mat-icon>
+        </div>
+        <div class="btn-current" *ngFor="let page of [].constructor(totalPages); let i = index" (click)="changePage(i+1)" [class.active]="currentPage === i+1">
+          <span>{{i+1}}</span>
+        </div>
+        <div class="btn-next" (click)="nextPage()" [style.cursor]="currentPage === totalPages ? 'not-allowed' : 'pointer'">
+          <mat-icon [style.opacity]="currentPage === totalPages ? '0.5' : '1'">keyboard_double_arrow_right</mat-icon>
         </div>
       </div>
     </div>

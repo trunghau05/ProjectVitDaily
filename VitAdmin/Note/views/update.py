@@ -19,22 +19,18 @@ def UpdateNote(request, nt_id):
     date_str = request.data.get('nt_date')
     us_id = request.data.get('us')
 
-    # Kiểm tra độ dài content nếu có cập nhật
     if 'nt_content' in request.data and len(content.strip()) < 10:
         return Response({'error': 'Nội dung ghi chú phải có ít nhất 10 ký tự.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Gán giá trị mới
     note.nt_title = title
     note.nt_subtitle = subtitle
     note.nt_content = content
     note.nt_img = img
     note.nt_pdf = pdf
 
-    # Cập nhật ngày nếu có
     if date_str:
         note.nt_date = parse_datetime(date_str)
 
-    # Cập nhật người dùng nếu có
     if us_id:
         try:
             note.us = User.objects.get(pk=us_id)

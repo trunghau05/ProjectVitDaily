@@ -7,28 +7,24 @@ from rest_framework import status
 @api_view(['POST'])
 def AddNote(request):
     try:
-        # Lấy tổng số Note hiện tại
         total_notes = Note.objects.count()
-        new_id = str(total_notes + 1).zfill(3)  # Thêm số 0 cho đủ 3 chữ số
+        new_id = str(total_notes + 1).zfill(3) 
 
         title = request.data.get('nt_title')
         subtitle = request.data.get('nt_subtitle')
         content = request.data.get('nt_content')
         img = request.data.get('nt_img')
         pdf = request.data.get('nt_pdf')
-        user_id = request.data.get('us_id')
+        us_id = request.data.get('us_id')
 
-        # Kiểm tra user tồn tại
         try:
-            user = User.objects.get(pk=user_id)
+            user = User.objects.get(pk=us_id)
         except User.DoesNotExist:
             return Response({"error": "User không tồn tại"}, status=status.HTTP_404_NOT_FOUND)
 
-        # Thêm ràng buộc độ dài content
         if content and len(content) < 10:
             return Response({"error": "Nội dung phải có ít nhất 10 ký tự"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Tạo Note mới
         note = Note.objects.create(
             nt_id="NT" + new_id,
             nt_title=title,

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Task',
     'Note',
     'Common',
+    'VitAi',
     'rest_framework',
 ]
 

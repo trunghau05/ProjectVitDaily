@@ -60,11 +60,10 @@ body {
     align-items: center;
 }
 
-<<<<<<< HEAD
-input:focus, textarea:focus {
-    border: none;
-=======
 input, textarea {
->>>>>>> origin/trunghau
     outline: none;
+}
+
+button {
+    cursor: pointer;
 }
