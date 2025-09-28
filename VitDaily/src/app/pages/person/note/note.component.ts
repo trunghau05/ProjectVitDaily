@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { FlexCenterDirective } from '../../../directives/flex-center/flex-center.directive';
 import { Router } from '@angular/router';
 import { NoteService } from '../../../services/person/note.service';
+import { VitaiComponent } from '../../../components/vitai/vitai.component';
 
 @Component({
   selector: 'app-note',
-  imports: [NavbarComponent, MatIconModule, SearchBarComponent, FormatDatePipe, CommonModule, FlexCenterDirective],
+  imports: [NavbarComponent, MatIconModule, SearchBarComponent, FormatDatePipe, CommonModule, FlexCenterDirective, VitaiComponent],
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss' 
 })

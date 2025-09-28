@@ -1,1 +1,67 @@
-<p>vitai works!</p>
+<div class="vit-toggle">
+  <div class="vit-btn" flexCenter (click)="toggleChat()">
+    <mat-icon>assistant_device</mat-icon>
+  </div>
+</div>
+
+<div class="vit-container" *ngIf="isOpen" flexCenter>
+  <div class="vit-header">
+    <span>Trợ lý Vịt</span>
+    <div class="btn" flexCenter style="gap: 10px">
+      <div class="ic" (click)="clearChat()">
+        <mat-icon style="cursor: pointer">clear_all</mat-icon>
+      </div>
+      <div class="ic" (click)="toggleChat()">
+        <mat-icon style="cursor: pointer">remove</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="vit-content" #chatContent>
+    <div
+      *ngFor="let msg of messages"
+      [ngClass]="{
+        'you-message': msg.from === 'user',
+        'vit-message': msg.from === 'bot'
+      }"
+    >
+      <span *ngIf="msg.text">{{ msg.text }}</span>
+
+      <div *ngIf="msg.json">
+        <div class="note-item" *ngFor="let note of msg.json" (click)="navigateTo(note.nt_id)">
+          <div class="info">
+            <div flexCenter class="img">
+              <img src="assets/note-icon.png" alt="note" />
+            </div>
+            <span>{{ note.us }}</span>
+          </div>
+
+          <div class="item">
+            <div class="title">
+              <span>{{ note.nt_title || "Không có tiêu đề" }}</span>
+            </div>
+
+            <div class="note">
+              <span>{{ note.nt_content || "..." }}</span>
+            </div>
+
+            <div class="date">
+              <span style="color: black;">{{ note.nt_date | date : "short" }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vit-chat">
+    <input
+      type="text"
+      placeholder="Nhắn tin cho trợ lý Vịt..."
+      [(ngModel)]="usInput"
+    />
+    <div class="vit-send" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </div>
+  </div>
+</div>

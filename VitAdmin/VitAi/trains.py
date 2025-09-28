@@ -5,18 +5,20 @@ import requests
 from google import genai
 from .utils import *
 
-client = genai.Client(api_key="AIzaSyDOn9sWe_f7Vi1kMAv_UJy6lbhFNXvjBqA") 
+client = genai.Client(api_key="AIzaSyD09X-xh9HkghMk4eImIHXrqPw9Uy5hcIA") 
 
 PROMPTS = {
     "summary": (
         "Bạn là Vịt, một chatbot hỗ trợ quản lý ghi chú và công việc. "
-        "Người dùng muốn tóm tắt nội dung. Hãy trả lời tự nhiên, rõ ràng, dễ hiểu. "
-        "Tóm tắt các ý chính trong JSON sau, không thêm nhận xét ngoài:\n{data}"
+        "Có thể thêm các kiến thức chuyên sâu có liên quan để người dùng nắm bắt. "
+        "Người dùng muốn tóm tắt nội dung. Hãy trả lời tự nhiên, rõ ràng, dễ hiểu, giống người nhất. "
+        "Không sử dụng các ký tự đặt biệt vào câu trả lời như: **,*,#,$ mà thay vào đó dùng các dấu - và + để thể hiện ý cha và con, nhớ cách dòng để dễ nhìn ."
+        "Tóm tắt các ý chính của ghi chú được chỉ định trong JSON sau:\n{data}"
     ),
     "search": (
         "Bạn là Vịt, một chatbot hỗ trợ quản lý ghi chú và công việc. "
         "Người dùng muốn tìm ghi chú theo từ khóa '{query}'. "
-        "Trả lời tự nhiên nhưng chỉ xuất đúng JSON các ghi chú khớp:\n{data}"
+        "Trả lời tự nhiên, vui tính, đừng nhắc đến việc chỉ xuất JSON cho người dùng nhưng chỉ xuất đúng JSON các ghi chú khớp:\n{data}"
     ),
     "detail": (
         "Bạn là Vịt, một chatbot quản lý ghi chú. "
@@ -25,7 +27,9 @@ PROMPTS = {
     ),
     "translate": (
         "Bạn là Vịt, một chatbot quản lý ghi chú. "
-        "Người dùng muốn dịch sang tiếng Anh. Trả lời dưới dạng JSON đã dịch:\n{data}"
+        "Chỉ dịch toàn bộ ghi chú khi người dùng yêu cầu dịch toàn bộ danh sách ghi chú"
+        "Người dùng muốn dịch các ghi chú theo id, theo ghi chú được chỉ định, theo từ khóa '{query}'. "
+        "Người dùng muốn dịch sang tiếng Anh. Trả lời tự nhiên, vui tính, đừng nhắc đến việc chỉ xuất JSON cho người dùng nhưng chỉ xuất đúng JSON các ghi chú khớp, dưới dạng JSON đã dịch:\n{data}"
     ),
     "analyze": (
         "Bạn là Vịt, một chatbot quản lý ghi chú. "
@@ -36,6 +40,7 @@ PROMPTS = {
         "Bạn là Vịt, một chatbot hỗ trợ quản lý ghi chú và công việc. "
         "Người dùng nói: '{query}'. Hãy trả lời tự nhiên, thân thiện và phù hợp với ngữ cảnh. "
         "Trả lời dạng văn bản, không có ký tự gì đặt biệt. "
+        "Không sử dụng các ký tự đặt biệt vào câu trả lời như: **,*,#,$ mà thay vào đó dùng các dấu - và + để thể hiện ý cha và con, nhớ cách dòng để dễ nhìn ."
         "Nếu cần, Vịt có thể hỏi thêm để làm rõ ý muốn của người dùng."
         "Không thêm ký tự đặt biệt như emoji"
     ),
@@ -54,7 +59,7 @@ INTENTS = {
     "detail": ["chi tiết", "full", "đầy đủ"],
     "translate": ["dịch", "translate", "english"],
     "analyze": ["phân tích", "analyze", "topic"],
-    "create": ["tạo", "tạo mới", "create", "new note", "thêm", "thêm mới", "add", "thêm ghi chú", "tạo ghi chú"],
+    "create": ["tạo", "tạo mới", "create", "new note", "thêm mới", "add", "thêm ghi chú", "tạo ghi chú"],
     "feedback": ["feedback", "sai", "không đúng", "nhầm", "góp ý", "lỗi", "đừng", "không cần", "bỏ qua", "từ giờ", "đừng hỏi"],  
 }
 

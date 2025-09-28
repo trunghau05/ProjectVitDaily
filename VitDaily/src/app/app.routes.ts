@@ -6,6 +6,7 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
 import { DetailNoteComponent } from './components/detail-note/detail-note.component';
 import { TaskComponent } from './pages/person/task/task.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
+import { VitaiComponent } from './components/vitai/vitai.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'add-note', component: AddNoteComponent },
   { path: 'add-task', component: AddTaskComponent },
   { path: 'task', component: TaskComponent },
+  { path: 'vitai', component: VitaiComponent },
   { path: 'detail-note/:nt_id', component: DetailNoteComponent },
 ];

@@ -14,7 +14,9 @@
           </div>
         </div>
         <div class="tool" flexCenter style="gap: 20px;">
-          <app-search-bar placeholder="Tìm kiếm ghi chú..." *ngIf="isList"></app-search-bar>
+          <div>
+            <app-search-bar placeholder="Tìm kiếm ghi chú..." *ngIf="isList"></app-search-bar>
+          </div>
           <div class="ic">
             <mat-icon>search</mat-icon>
           </div>
@@ -24,9 +26,9 @@
         </div>
       </div>
 
-      <div class="kanban-container" flexCenter *ngIf="isKanban">
+      <div class="kanban-container" *ngIf="isKanban">
         <div class="todo board" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[doneList, doingList]" id="todoList">
-          <div class="header td" flexCenter>
+          <div class="header td">
             <div flexCenter>
               <h5>Công việc</h5>
             </div>
@@ -38,21 +40,21 @@
             <div class="board-item" *ngFor="let task of todo" cdkDrag>
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
-                  <h5>{{task.title}}</h5>
+                  <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
                   <div class="circle"></div>
                 </div>
               </div>
               <div class="task-note">
-                <span>{{task.content}}</span>
+                <span>{{task.ts_note}}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="doing board" cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing" (cdkDropListDropped)="drop($event)"  [cdkDropListConnectedTo]="[todoList, doneList]" id="doingList">
-          <div class="header doi" flexCenter>
+          <div class="header doi">
             <div flexCenter>
               <h5>Đang làm</h5>
             </div>
@@ -64,21 +66,21 @@
             <div class="board-item" *ngFor="let task of doing" cdkDrag>
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
-                  <h5>{{task.title}}</h5>
+                  <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
                   <div class="circle"></div>
                 </div>
               </div>
               <div class="task-note">
-                <span>{{task.content}}</span>
+                <span>{{task.ts_note}}</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="done board" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todoList, doingList]" id="doneList">
-          <div class="header don" flexCenter>
+          <div class="header don">
             <div flexCenter>
               <h5>Hoàn thành</h5>
             </div>
@@ -90,14 +92,14 @@
             <div class="board-item" *ngFor="let task of done" cdkDrag>
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
-                  <h5>{{task.title}}</h5>
+                  <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
                   <div class="circle"></div>
                 </div>
               </div>
               <div class="task-note">
-                <span>{{task.content}}</span>
+                <span>{{task.ts_note}}</span>
               </div>
             </div>
           </div>
@@ -105,21 +107,41 @@
       </div>
 
       <div class="list-container" *ngIf="isList">
-        <div class="list-header">
-          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <span style="width: 15%;">Tiêu đề</span>
-            <span style="width: 10%;">Mô tả</span>
-            <span>Được giao</span>
-            <span>Bắt đầu</span>
-            <span>Kết thúc</span>
-            <span>Trạng thái</span>
-            <span>Công cụ</span>
-          </div>
-        </div>
         <div class="list-table">
-          <div class="list-item">
-
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 18%;" class="left">Tiêu đề</th>
+                <th style="width: 22%;" class="left">Mô tả</th>
+                <th style="width: 10%;" class="center">Được giao</th>
+                <th style="width: 15%;" class="center">Bắt đầu</th>
+                <th style="width: 15%;" class="center">Kết thúc</th>
+                <th style="width: 15%;" class="center">Trạng thái</th>
+                <th style="width: 5%;" class="center">Tool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of tasks">
+                <td class="truncate" style="width: 18%; font-weight: 550;">{{task.ts_title}}</td>
+                <td class="truncate" style="width: 22%;">{{task.ts_subtitle}}</td>
+                <td class="center" style="width: 10%;">{{task.us_id}}</td>
+                <td class="center" style="width: 15%;">{{task.ts_start}}</td>
+                <td class="center" style="width: 15%;">{{task.ts_end}}</td>
+                <td class="center" style="width: 15%;">
+                  <span 
+                    style="color: black; padding: 10px; border-radius: 15px; font-size: 11px;" 
+                    [style.background-color]="task.ts_status === 0 ? 'rgba(16, 73, 179, 0.2)' : (task.ts_status === 1 ? 'rgba(180, 162, 0, 0.2)' : 'rgba(0, 128, 0, 0.2)')">
+                    {{getStatus(task.ts_status)}}
+                  </span>
+                </td>
+                <td class="center" style="width: 5%;">
+                  <div class="ic">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

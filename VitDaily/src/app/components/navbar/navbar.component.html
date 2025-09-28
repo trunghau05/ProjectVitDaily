@@ -66,11 +66,13 @@
         </div>
     </div>
 
-    <div class="btn-account">
+    <div class="btn-account"[style.background-color]="isActive('vitai') ? 'white !important' : 'transparent'"
+            [style.border-radius]="isActive('vitai') ? '10px' : '10px'"
+            (click)="navigateTo('vitai')">
         <div class="ic flex-center">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon>assistant_device</mat-icon>
         </div>
-        <span id="txt">Tài khoản</span>
+        <span id="txt">Trợ lý Vịt</span>
     </div>
     
     <div class="btn-setting" style="margin-top: 0;">

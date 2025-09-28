@@ -7,6 +7,7 @@ pip install django-cors-headers
 pip install mysqlclient
 pip show django-cors-headers
 pip install djangorestframework
+pip install google-genai
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver

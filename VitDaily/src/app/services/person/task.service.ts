@@ -8,4 +8,22 @@ export class TaskService {
   apiUrl = 'http://127.0.0.1:8000/task/';
 
   constructor() { }
+
+  async addTask(data: {ts_title: string, ts_subtitle: string, ts_status: string, ts_start: Date, ts_end: Date, ts_note: string, us_id: string, ws_id: string}) {
+    try {
+      const respone = await axios.post(this.apiUrl + 'add/', data);
+      return respone.data;
+    } catch (error) {
+      return Response.error;
+    }
+  }
+
+  async getTaskList(us_id: string) {
+    try {
+      const respone = await axios.get(this.apiUrl + 'task-list/' + '?us_id=' + us_id);
+      return respone.data;
+    } catch (error) {
+      Response.error;
+    }
+  }
 }

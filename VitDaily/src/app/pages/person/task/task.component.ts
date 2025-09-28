@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, } from '@angular/cdk/drag-drop';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
+import { Task } from '../../../models/task.interface';
+import { TaskService } from '../../../services/person/task.service';
 
 @Component({
   selector: 'app-task',
@@ -15,50 +17,23 @@ import { SearchBarComponent } from '../../../components/search-bar/search-bar.co
 export class TaskComponent implements OnInit{
   isKanban: boolean = false;
   isList: boolean = true;
+  usId = '';
 
-  tasks: any[] = [];
+  tasks: Task[] = [];
   todo: any[] = [];
   doing: any[] = [];
   done: any[] = [];
 
-  ngOnInit() {
-    this.tasks = [
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 1
-      },
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 2
-      },
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 0
-      },
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 1
-      },
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 1
-      },
-      {
-        title: 'Đây là tiêu đề công việc',
-        content: 'Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc. Đây là nội dung công việc.',
-        status: 2
-      },
-    ];
+  async ngOnInit() {
+    this.usId = sessionStorage.getItem('us_id') || '';
+    await this.taskList();
 
-    this.todo = this.tasks.filter(task => task.status === 0);
-    this.doing = this.tasks.filter(task => task.status === 1);
-    this.done = this.tasks.filter(task => task.status === 2);
+    this.todo = this.tasks.filter(task => task.ts_status === 0); 
+    this.doing = this.tasks.filter(task => task.ts_status === 1);
+    this.done = this.tasks.filter(task => task.ts_status === 2);
   }
+
+  constructor(private taskService: TaskService) {}
 
   toggleList() {
     this.isList = true;
@@ -70,6 +45,16 @@ export class TaskComponent implements OnInit{
     this.isList = false;
   }
 
+  async taskList() {
+    try {
+      const respone = await this.taskService.getTaskList(this.usId);
+      this.tasks = respone;
+      console.log(this.tasks);
+    } catch (error) {
+      Response.error;
+    }
+  }
+ 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -83,10 +68,22 @@ export class TaskComponent implements OnInit{
     }
 
     event.container.data.forEach(task => {
-      if (this.todo.includes(task)) task.status = 0;
-      if (this.doing.includes(task)) task.status = 1;
-      if (this.done.includes(task)) task.status = 2;
+      if (this.todo.includes(task)) task.ts_status = 0;
+      if (this.doing.includes(task)) task.ts_status = 1;
+      if (this.done.includes(task)) task.ts_status = 2;
     });
   }
 
+  getStatus(status: number): string {
+    switch (status) {
+      case 0:
+        return 'Chưa bắt đầu';
+      case 1:
+        return 'Đang tiến hành';
+      case 2:
+        return 'Đã hoàn thành';
+      default:
+        return 'Không xác định';
+    }
+  }
 }

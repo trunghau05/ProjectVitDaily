@@ -55,21 +55,41 @@
 
 .kanban-container {
     width: 100%;
-    gap: 50px;
     flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
 
 .board {
-    height: calc(100vh - 220px);
+    height: calc(100vh - 230px);
+    padding: 25px 20px;
+    box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);    
+    background-color: white;
     width: 25%;
+    border-radius: 15px;
+}
+
+.todo {
+  border-top: 5px solid rgba(16, 73, 179, 0.5);
+}
+
+.doing {
+  border-top: 5px solid rgba(180, 162, 0, 0.5);
+}
+
+.done {
+  border-top: 5px solid rgba(0, 128, 0, 0.5);
 }
 
 .header {
-    position: relative;
-    padding: 12px 10px;
+    padding: 0 10px 10px 10px;
     border-radius: 20px;
-    border: 1.5px solid rgba(169, 169, 169, 0.5);
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .header h5, span {
@@ -77,8 +97,7 @@
 }
 
 .header h5 {
-    font-size: 15px;
-    font-weight: 550;
+    font-size: 18px;
 }
 
 .header span {
@@ -86,11 +105,10 @@
 }
 
 .count {
-    position: absolute;
     right: 10px;
     height: 20px;
     width: 20px;
-    border: 1px solid rgba(68, 68, 68, 0.6);
+    border: 1.5px solid rgba(169, 169, 169);
     border-radius: 50%;
 }
 
@@ -98,7 +116,7 @@
     height: 15px;
     width: 15px;
     border-radius: 50%;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 
 .board-content {
@@ -106,23 +124,29 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - 230px);
+    height: calc(100vh - 280px);
     overflow: auto;
     padding: 0;
+    margin-top: 20px;
     scrollbar-width: none;
     gap: 15px;
-    margin-top: 20px;
 }
 
 .board-item {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 15px;
+    gap: 8px;
+    padding: 15px;
+    border-radius: 20px;
     border: 1.5px solid rgba(169, 169, 169, 0.5);
     background-color: white;
+    width: 100%; 
+    box-sizing: border-box; 
     cursor: pointer;
+}
+
+.board-item span {
+    color: black;
 }
 
 .board-item:hover {
@@ -132,7 +156,7 @@
 }
 
 .board-item h5 {
-    font-weight: 550;
+    font-weight: 500;
     font-size: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -170,30 +194,58 @@
 }
 
 .list-container {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
-}
-
-.list-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(239, 239, 239);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 13px 55px;
-}
-
-.list-header span {
-    font-size: 14px;
-    font-weight: 550;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
+  overflow: hidden;
 }
 
 .list-table {
-    height: calc(100vh - 220px);
-    border-bottom-left-radius: 10px;
-    background-color: white;
-    border-bottom-right-radius: 10px;
+  max-height: calc(100vh - 175px);     
+  overflow-y: auto;
+  scrollbar-width: none;
+  background-color: white;
+}
+
+.list-table table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.list-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: rgba(239, 239, 239);
+  z-index: 1;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.list-table td {
+  padding: 15px;
+  border-bottom: 1px solid #cfcfcf;
+  font-size: 14px;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
 }

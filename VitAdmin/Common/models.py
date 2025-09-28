@@ -77,7 +77,7 @@ class Task(models.Model):
     ts_id = models.CharField(primary_key=True, max_length=20)
     ts_title = models.CharField(max_length=100)
     ts_subtitle = models.CharField(max_length=100, blank=True, null=True)
-    ts_status = models.BooleanField(default=False)
+    ts_status = models.IntegerField(default=False)
     ts_start = models.DateField()
     ts_end = models.DateField()
     ts_note = models.TextField(blank=True, null=True)
