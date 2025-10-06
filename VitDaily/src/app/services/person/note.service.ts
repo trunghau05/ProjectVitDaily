@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { Note } from '../../models/note.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class NoteService {
     }
   }
 
-  async updateNote(nt_id: string, data: {nt_id: string; nt_title: string; nt_subtitle?: string | null; nt_content?: string | null; nt_img?: string | null; nt_pdf?: string | null; nt_date: string;  us_id: string;}) {
+  async updateNote(nt_id: string, data: Note) {
     try {
       const respone = await axios.patch(this.apiUrl + 'update/' + nt_id + '/', data);
       return respone.data;

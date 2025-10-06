@@ -7,16 +7,18 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, 
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
 import { Task } from '../../../models/task.interface';
 import { TaskService } from '../../../services/person/task.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
-  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent],
+  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent, FormsModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
 export class TaskComponent implements OnInit{
   isKanban: boolean = false;
   isList: boolean = true;
+  optionOpen: boolean = false;
   usId = '';
 
   tasks: Task[] = [];
@@ -68,22 +70,41 @@ export class TaskComponent implements OnInit{
     }
 
     event.container.data.forEach(task => {
-      if (this.todo.includes(task)) task.ts_status = 0;
-      if (this.doing.includes(task)) task.ts_status = 1;
-      if (this.done.includes(task)) task.ts_status = 2;
+      if (this.todo.includes(task)) {
+        task.ts_status = 0;
+        this.updateTask(task);
+      }
+      if (this.doing.includes(task)) {
+        task.ts_status = 1;
+        this.updateTask(task);
+      }
+      if (this.done.includes(task)) {
+        task.ts_status = 2;
+        this.updateTask(task);
+      }
     });
   }
 
-  getStatus(status: number): string {
-    switch (status) {
-      case 0:
-        return 'Chưa bắt đầu';
-      case 1:
-        return 'Đang tiến hành';
-      case 2:
-        return 'Đã hoàn thành';
-      default:
-        return 'Không xác định';
+  async updateTask(task: any) {
+    try {
+      const respone = await this.taskService.updateTask(task.ts_id, task);
+      console.log('Trạng thái của task ' + task.ts_id + ': ' + task.ts_status);
+    } catch (error) {
+      Response.error;
     }
+  }
+
+  getBackgroundColor(status: number) {
+    switch(status) {
+      case 0: return 'rgba(16, 73, 179, 0.2)';
+      case 1: return 'rgba(180, 162, 0, 0.2)'; 
+      case 2: return 'rgba(0, 128, 0, 0.2)';   
+      default: return 'white';
+    }
+  }
+
+  onStatusChange(task: Task, newStatus: number) {
+    task.ts_status = newStatus;   
+    this.updateTask(task);       
   }
 }

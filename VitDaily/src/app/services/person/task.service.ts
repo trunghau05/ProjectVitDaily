@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Injectable } from '@angular/core';
+import { Task } from '../../models/task.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,15 @@ export class TaskService {
   async getTaskList(us_id: string) {
     try {
       const respone = await axios.get(this.apiUrl + 'task-list/' + '?us_id=' + us_id);
+      return respone.data;
+    } catch (error) {
+      Response.error;
+    }
+  }
+
+  async updateTask(ts_id: string, data: Task) {
+    try {
+      const respone = await axios.patch(this.apiUrl + 'update/' + ts_id + '/', data);
       return respone.data;
     } catch (error) {
       Response.error;

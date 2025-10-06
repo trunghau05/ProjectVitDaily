@@ -128,11 +128,21 @@
                 <td class="center" style="width: 15%;">{{task.ts_start}}</td>
                 <td class="center" style="width: 15%;">{{task.ts_end}}</td>
                 <td class="center" style="width: 15%;">
-                  <span 
-                    style="color: black; padding: 10px; border-radius: 15px; font-size: 11px;" 
-                    [style.background-color]="task.ts_status === 0 ? 'rgba(16, 73, 179, 0.2)' : (task.ts_status === 1 ? 'rgba(180, 162, 0, 0.2)' : 'rgba(0, 128, 0, 0.2)')">
-                    {{getStatus(task.ts_status)}}
-                  </span>
+                  <select
+                  class="center"
+                  [ngStyle]="{
+                    'background-color': getBackgroundColor(task.ts_status),
+                    'color': 'black',
+                    'padding': '10px',
+                    'border-radius': '15px',
+                    'font-size': '11px'
+                  }"
+                  [(ngModel)]="task.ts_status"
+                  (ngModelChange)="onStatusChange(task, $event)">
+                  <option [value]="0">Chưa bắt đầu</option>
+                  <option [value]="1">Đang tiến hành</option>
+                  <option [value]="2">Đã hoàn thành</option>
+                </select>
                 </td>
                 <td class="center" style="width: 5%;">
                   <div class="ic">
