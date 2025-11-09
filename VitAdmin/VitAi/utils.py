@@ -48,16 +48,29 @@ def save_history(user_input, intent, ai_output, us_id="US001"):
     except User.DoesNotExist:
         raise ValueError(f"User {us_id} không tồn tại")
 
-    history = History.objects.create(
-        user_input=user_input,
-        intent=intent,
-        ai_output=ai_output,
-        us=user
-    )
+    with transaction.atomic():
+        last_history = History.objects.order_by('-ht_id').first()
+
+        if last_history and last_history.ht_id.startswith("HT"):
+            last_number = int(last_history.ht_id[2:])
+            new_number = last_number + 1
+        else:
+            new_number = 1
+
+        new_ht_id = f"HT{new_number:03d}"
+
+        history = History.objects.create(
+            ht_id=new_ht_id,
+            user_input=user_input,
+            intent=intent,
+            ai_output=ai_output,
+            us=user
+        )
+
     return history
 
 
-def get_last_user_input(us_id="US001", max_n=50):
+def get_last_user_input(us_id="US001", max_n=20):
     try:
         user = User.objects.get(us_id=us_id)
     except User.DoesNotExist:

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Note',
     'Common',
     'VitAi',
+    'Workspace',
     'rest_framework',
 ]
 

@@ -30,7 +30,7 @@
         <div class="todo board" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[doneList, doingList]" id="todoList">
           <div class="header td">
             <div flexCenter>
-              <h5>Công việc</h5>
+              <h5>CÔNG VIỆC</h5>
             </div>
             <div class="count" flexCenter>
               <span>8</span>
@@ -43,7 +43,11 @@
                   <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
-                  <div class="circle"></div>
+                  <div class="status" 
+                    [ngStyle]="{
+                      'background-color': getBackgroundColor(task.ts_status)}">
+                    {{getStatusText(task.ts_status)}}
+                  </div>
                 </div>
               </div>
               <div class="task-note">
@@ -56,7 +60,7 @@
         <div class="doing board" cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing" (cdkDropListDropped)="drop($event)"  [cdkDropListConnectedTo]="[todoList, doneList]" id="doingList">
           <div class="header doi">
             <div flexCenter>
-              <h5>Đang làm</h5>
+              <h5>ĐANG LÀM</h5>
             </div>
             <div class="count" flexCenter>
               <span>5</span>
@@ -69,7 +73,11 @@
                   <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
-                  <div class="circle"></div>
+                  <div class="status" 
+                    [ngStyle]="{
+                      'background-color': getBackgroundColor(task.ts_status)}">
+                    {{getStatusText(task.ts_status)}}
+                  </div>
                 </div>
               </div>
               <div class="task-note">
@@ -82,7 +90,7 @@
         <div class="done board" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todoList, doingList]" id="doneList">
           <div class="header don">
             <div flexCenter>
-              <h5>Hoàn thành</h5>
+              <h5>HOÀN THÀNH</h5>
             </div>
             <div class="count" flexCenter>
               <span>3</span>
@@ -95,7 +103,11 @@
                   <h5>{{task.ts_title}}</h5>
                 </div>
                 <div class="task-avatar">
-                  <div class="circle"></div>
+                  <div class="status" 
+                    [ngStyle]="{
+                      'background-color': getBackgroundColor(task.ts_status)}">
+                    {{getStatusText(task.ts_status)}}
+                  </div>
                 </div>
               </div>
               <div class="task-note">
@@ -139,9 +151,9 @@
                   }"
                   [(ngModel)]="task.ts_status"
                   (ngModelChange)="onStatusChange(task, $event)">
-                  <option [value]="0">Chưa bắt đầu</option>
-                  <option [value]="1">Đang tiến hành</option>
-                  <option [value]="2">Đã hoàn thành</option>
+                  <option [value]="0">{{getStatusText(0)}}</option>
+                  <option [value]="1">{{getStatusText(1)}}</option>
+                  <option [value]="2">{{getStatusText(2)}}</option>
                 </select>
                 </td>
                 <td class="center" style="width: 5%;">

@@ -1,182 +1,162 @@
 .btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .ic {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    width: 35px;
-    font-weight: 550;
-    border-radius: 10px;
-    background-color: #ffffff;
-    border: 1px solid rgba(126, 126, 126, 0.5);
-    cursor: pointer;
-    transition: all ease-out 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 35px;
+  font-weight: 550;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.5);
+  cursor: pointer;
+  transition: all ease-out 300ms;
 }
 
 .ic:hover {
-    background-color: rgba(1, 47, 95, 1);
-    transition: all ease-in 300ms;
+  background-color: rgba(1, 47, 95, 1);
+  transition: all ease-in 300ms;
 
-    mat-icon {
-        color: white;
-        transition: all ease-in 300ms;
-    }
+  mat-icon {
+    color: white;
+    transition: all ease-in 300ms;
+  }
 }
 
 .ic mat-icon {
-    font-size: 20px;
-    height: 20px;
-    width: 20px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
 }
 
 .btn {
-    gap: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .btn span {
-    display: none;
-    font-weight: 550;
-    color: white;
-    font-size: 14px;
+  display: none;
+  font-weight: 550;
+  color: white;
+  font-size: 14px;
 }
 
 .tab {
-    gap: 20px;
+  gap: 20px;
 }
 
 .kanban-container {
-    width: 100%;
-    flex-wrap: wrap;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
 }
 
 .board {
-    height: calc(100vh - 230px);
-    padding: 25px 20px;
-    box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);    
-    background-color: white;
-    width: 25%;
-    border-radius: 15px;
-}
-
-.todo {
-  border-top: 5px solid rgba(16, 73, 179, 0.5);
-}
-
-.doing {
-  border-top: 5px solid rgba(180, 162, 0, 0.5);
-}
-
-.done {
-  border-top: 5px solid rgba(0, 128, 0, 0.5);
+  height: calc(100vh - 230px);
+  padding: 25px 10px;
+  box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
+  background-color: rgba(238, 238, 238);
+  width: 350px;
+  border-radius: 8px;
 }
 
 .header {
-    padding: 0 10px 10px 10px;
-    border-radius: 20px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 0 10px 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.header h5, span {
-    color: black;
+.header h5,
+span {
+  color: black;
 }
 
 .header h5 {
-    font-size: 18px;
+  font-size: 16px;
+  font-weight: 450;
 }
 
 .header span {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .count {
-    right: 10px;
-    height: 20px;
-    width: 20px;
-    border: 1.5px solid rgba(169, 169, 169);
-    border-radius: 50%;
+  right: 10px;
+  height: 20px;
+  width: 20px;
+  border: 1.5px solid rgba(169, 169, 169);
+  border-radius: 50%;
 }
 
-.circle {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background-color: rgb(0, 0, 0);
+.status {
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 10px;
+  text-align: center;
 }
 
 .board-content {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: calc(100vh - 280px);
-    overflow: auto;
-    padding: 0;
-    margin-top: 20px;
-    scrollbar-width: none;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 263px);
+  overflow: auto;
+  padding: 0;
+  margin-top: 20px;
+  scrollbar-width: none;
+  gap: 10px;
 }
 
 .board-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 15px;
-    border-radius: 20px;
-    border: 1.5px solid rgba(169, 169, 169, 0.5);
-    background-color: white;
-    width: 100%; 
-    box-sizing: border-box; 
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .board-item span {
-    color: black;
-}
-
-.board-item:hover {
-    span {
-        -webkit-line-clamp: 4;
-    }
+  color: black;
 }
 
 .board-item h5 {
-    font-weight: 500;
-    font-size: 16px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-weight: 500;
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .board-item span {
-    font-size: 14px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;    
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cdk-drag-preview {
   box-sizing: border-box;
-  border-radius: 15px;
   background: white;
   transform: rotate(2deg);
 }
@@ -201,7 +181,7 @@
 }
 
 .list-table {
-  max-height: calc(100vh - 175px);     
+  max-height: calc(100vh - 175px);
   overflow-y: auto;
   scrollbar-width: none;
   background-color: white;
@@ -251,9 +231,9 @@
 }
 
 select {
-  -webkit-appearance: none; 
-  -moz-appearance: none; 
-  appearance: none;  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 select::-ms-expand {

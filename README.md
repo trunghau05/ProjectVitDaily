@@ -1,5 +1,4 @@
 Django
-
 pip install django
 pip show django
 python -m django startproject "tên dự án"
@@ -8,13 +7,14 @@ pip install mysqlclient
 pip show django-cors-headers
 pip install djangorestframework
 pip install google-genai
+pip install mongoengine
+pip install mongoengine dnspython
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 python manage.py startapp “chức năng”
-
+---
 Angular
-
 npm install -g @angular/cli
 npm install @angular/router
 ng add @angular/material

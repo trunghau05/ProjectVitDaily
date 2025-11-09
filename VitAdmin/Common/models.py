@@ -158,9 +158,10 @@ class UsedTask(models.Model):
 
 
 class History(models.Model):
+    ht_id = models.CharField(primary_key=True, max_length=20)
     user_input = models.TextField()
     intent = models.CharField(max_length=50, blank=True, null=True)
-    ai_output = models.TextField(blank=True, null=True, db_collation='utf8mb4_unicode_ci')
+    ai_output = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     us = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -171,7 +172,7 @@ class History(models.Model):
 class Feedback(models.Model):
     fb_id = models.CharField(primary_key=True, max_length=20)
     intent = models.CharField(max_length=50, blank=True, null=True)
-    feedback_text = models.TextField(db_collation='utf8mb4_unicode_ci')
+    feedback_text = models.TextField(blank=True, null=True)
     us = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -103,6 +103,15 @@ export class TaskComponent implements OnInit{
     }
   }
 
+  getStatusText(status: number) {
+    switch(status) {
+      case 0: return 'Chưa bắt đầu';
+      case 1: return 'Đang tiến hành'; 
+      case 2: return 'Đã hoàn thành';   
+      default: return 'Không xác định';
+    }
+  }
+
   onStatusChange(task: Task, newStatus: number) {
     task.ts_status = newStatus;   
     this.updateTask(task);       
