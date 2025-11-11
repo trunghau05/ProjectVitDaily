@@ -67,32 +67,12 @@ export class NoteComponent implements OnInit{
     this.isFilter = !this.isFilter;
   }
 
-  toggleConfirm(nt_id: string) {
-    this.ntId = nt_id;
-    this.isConfirm = !this.isConfirm;
-  }
-
-  closeConfirm() {
-    this.isConfirm = false;
-  }
-
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
   }
 
   detailNote(nt_id: string) {
-    this.router.navigate(['/detail-note', nt_id]);
-  }
-
-  async deleteNote() {
-    try {
-      const respone = await this.noteService.deleteNote(this.ntId);
-      alert(respone.message);
-      this.isConfirm = false;
-      this.ngOnInit();
-    } catch (error) {
-      alert(Response.error);
-    }
+    this.router.navigate(['person/detail-note', nt_id]);
   }
 
   filterOption(i: number) {

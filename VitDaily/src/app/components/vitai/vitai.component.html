@@ -28,25 +28,25 @@
       <span *ngIf="msg.text">{{ msg.text }}</span>
 
       <div *ngIf="msg.json">
-        <div class="note-item" *ngFor="let note of msg.json" (click)="navigateTo(note.nt_id)">
-          <div class="info">
-            <div flexCenter class="img">
-              <img src="assets/note-icon.png" alt="note" />
-            </div>
-            <span>{{ note.us }}</span>
-          </div>
-
+        <div
+          class="note-item"
+          *ngFor="let note of msg.json"
+          (click)="navigateTo(note.nt_id)"
+        >
           <div class="item">
+            <div class="date">
+              <span>{{ note.nt_date | date : 'short' }}</span>
+              <div class="ic-note">
+                <mat-icon>edit_note</mat-icon>
+              </div>
+            </div>
+
             <div class="title">
               <span>{{ note.nt_title || "Không có tiêu đề" }}</span>
             </div>
 
             <div class="note">
               <span>{{ note.nt_content || "..." }}</span>
-            </div>
-
-            <div class="date">
-              <span style="color: black;">{{ note.nt_date | date : "short" }}</span>
             </div>
           </div>
         </div>

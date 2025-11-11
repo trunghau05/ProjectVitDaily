@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexCenterDirective } from '../../directives/flex-center/flex-center.directive';
+import { FlexCenterDirective } from '../../../directives/flex-center/flex-center.directive';
 import { FormsModule } from '@angular/forms';
-import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
+import { NavbarComponent } from '../../navbar/navbar.component';
 import { ActivatedRoute } from '@angular/router';
-import { NoteService } from '../../services/person/note.service';
-import { Note } from '../../models/note.interface';
+import { NoteService } from '../../../services/person/note.service';
+import { Note } from '../../../models/note.interface';
 import { Location } from '@angular/common';
 
 @Component({
@@ -17,9 +17,13 @@ import { Location } from '@angular/common';
   styleUrl: './detail-note.component.scss'
 })
 export class DetailNoteComponent implements OnInit {
+  @ViewChild('noteTextarea') noteTextarea!: ElementRef<HTMLTextAreaElement>;
+
   date = new Date();
   noteId: string | null = null;
   userId: string | null = null;
+
+  isConfirm = false;
 
   note = {} as Note;
   newNote = {} as Note;
@@ -30,6 +34,14 @@ export class DetailNoteComponent implements OnInit {
       this.noteId = this.route.snapshot.paramMap.get('nt_id');
       this.userId = sessionStorage.getItem('us_id');
       this.detailNote();
+  }
+
+  autoResizeOnLoad() {
+    if (this.noteTextarea) {
+      const ta = this.noteTextarea.nativeElement;
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
   }
 
   autoResize(event: Event) {
@@ -43,6 +55,7 @@ export class DetailNoteComponent implements OnInit {
       const respone = await this.noteService.getNoteDetail(this.userId!, this.noteId!);
       this.note = respone[0];
       this.newNote = this.note;
+      setTimeout(() => this.autoResizeOnLoad(), 0);
       console.log(this.newNote);
     } catch (error) {
       console.error(error);
@@ -62,6 +75,25 @@ export class DetailNoteComponent implements OnInit {
     } catch (error) {
       console.error(error);
       alert('Cập nhật ghi chú thất bại!');
+    }
+  }
+
+  toggleConfirm() {
+    this.isConfirm = !this.isConfirm;
+  }
+
+  closeConfirm() {
+    this.isConfirm = false;
+  }
+
+  async deleteNote() {
+    try {
+      const respone = await this.noteService.deleteNote(this.noteId);
+      alert(respone.message);
+      this.isConfirm = false;
+      this.close();
+    } catch (error) {
+      alert(Response.error);
     }
   }
 }

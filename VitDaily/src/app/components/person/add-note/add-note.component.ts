@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FlexCenterDirective } from '../../directives/flex-center/flex-center.directive';
+import { FlexCenterDirective } from '../../../directives/flex-center/flex-center.directive';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
+import { NavbarComponent } from '../../navbar/navbar.component';
 import { FormsModule } from "@angular/forms";
-import { Note } from '../../models/note.interface';
-import { NoteService } from '../../services/person/note.service';
+import { Note } from '../../../models/note.interface';
+import { NoteService } from '../../../services/person/note.service';
 import { Location } from '@angular/common';
 
 @Component({

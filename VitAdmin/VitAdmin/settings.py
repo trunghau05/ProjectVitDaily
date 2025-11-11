@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User',
     'Task',
+    'Subtask',
     'Note',
     'Common',
     'VitAi',
     'Workspace',
+    'Team',
     'rest_framework',
 ]
 

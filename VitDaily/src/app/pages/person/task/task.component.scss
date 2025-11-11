@@ -132,6 +132,10 @@ span {
   cursor: pointer;
 }
 
+.board-item:hover {
+  background-color: #fafafa;
+}
+
 .board-item span {
   color: black;
 }
@@ -177,6 +181,7 @@ span {
   width: 100%;
   border-radius: 10px;
   box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
+  max-height: calc(100vh - 175px);
   overflow: hidden;
 }
 
@@ -207,6 +212,14 @@ span {
   padding: 15px;
   border-bottom: 1px solid #cfcfcf;
   font-size: 14px;
+}
+
+.task-item {
+  cursor: pointer;
+}
+
+.task-item:hover {
+  background-color: #fafafa;
 }
 
 .truncate {
@@ -242,4 +255,51 @@ select::-ms-expand {
 
 .custom-select option:hover {
   background-color: inherit;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid rgba(1, 47, 95, 1);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  color: rgba(1, 47, 95, 1);
+  font-size: 14px;
+  font-weight: 500;
+  animation: dots 1.5s infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dots {
+  0% { content: "Đang tải"; }
+  25% { content: "Đang tải."; }
+  50% { content: "Đang tải.."; }
+  75% { content: "Đang tải..."; }
+  100% { content: "Đang tải"; }
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 998;
 }

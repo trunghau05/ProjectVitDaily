@@ -8,4 +8,6 @@ urlpatterns = [
     path('note/', include('Note.urls')), 
     path('vitai/', include('VitAi.urls')),
     path('workspace/', include('Workspace.urls')),
+    path('team/', include('Team.urls')),
+    path('subtask/', include('Subtask.urls')),
 ]

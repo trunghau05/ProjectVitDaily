@@ -8,23 +8,31 @@ import { SearchBarComponent } from '../../../components/search-bar/search-bar.co
 import { Task } from '../../../models/task.interface';
 import { TaskService } from '../../../services/person/task.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DetailTaskComponent } from '../../../components/person/detail-task/detail-task.component';
 
 @Component({
   selector: 'app-task',
-  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent, FormsModule],
+  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent, FormsModule, DetailTaskComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
 export class TaskComponent implements OnInit{
   isKanban: boolean = false;
   isList: boolean = true;
+  isDetail: boolean = false;
   optionOpen: boolean = false;
   usId = '';
+  tsId = '';
 
   tasks: Task[] = [];
+  displayedTasks: Task[] = []; 
+  pageSize: number = 10;    
+  currentPage: number = 0;
   todo: any[] = [];
   doing: any[] = [];
   done: any[] = [];
+  loading = false;
 
   async ngOnInit() {
     this.usId = sessionStorage.getItem('us_id') || '';
@@ -35,7 +43,7 @@ export class TaskComponent implements OnInit{
     this.done = this.tasks.filter(task => task.ts_status === 2);
   }
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private router: Router) {}
 
   toggleList() {
     this.isList = true;
@@ -47,11 +55,36 @@ export class TaskComponent implements OnInit{
     this.isList = false;
   }
 
+  loadMoreTasks() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    if (start >= this.tasks.length) return; 
+    this.displayedTasks.push(...this.tasks.slice(start, end));
+    this.currentPage++;
+  }
+
+  onScroll(event: any) {
+    const div = event.target;
+    const threshold = 50; 
+    const atBottom = div.scrollHeight - (div.scrollTop + div.clientHeight) < threshold;
+    
+    if (atBottom && !this.loading) {
+      this.loading = true;
+      setTimeout(() => { 
+        this.loadMoreTasks();
+        this.loading = false;
+      }, 500);
+    }
+  }
+
   async taskList() {
     try {
       const respone = await this.taskService.getTaskList(this.usId);
       this.tasks = respone;
-      console.log(this.tasks);
+      this.currentPage = 0;        
+      this.displayedTasks = [];    
+      this.loadMoreTasks();  
+      console.log(this.tasks)            
     } catch (error) {
       Response.error;
     }
@@ -115,5 +148,14 @@ export class TaskComponent implements OnInit{
   onStatusChange(task: Task, newStatus: number) {
     task.ts_status = newStatus;   
     this.updateTask(task);       
+  }
+
+  detailTask(ts_id: string) {
+    this.tsId = ts_id;
+    this.isDetail = true;
+  }
+
+  closeDetail() {
+    this.isDetail = false;
   }
 }

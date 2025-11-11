@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="board-content">
-            <div class="board-item" *ngFor="let task of todo" cdkDrag>
+            <div class="board-item" *ngFor="let task of todo" cdkDrag (click)="detailTask(task.ts_id)">
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
                   <h5>{{task.ts_title}}</h5>
@@ -67,7 +67,7 @@
             </div>
           </div>
           <div class="board-content">
-            <div class="board-item" *ngFor="let task of doing" cdkDrag>
+            <div class="board-item" *ngFor="let task of doing" cdkDrag (click)="detailTask(task.ts_id)">
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
                   <h5>{{task.ts_title}}</h5>
@@ -97,7 +97,7 @@
             </div>
           </div>
           <div class="board-content">
-            <div class="board-item" *ngFor="let task of done" cdkDrag>
+            <div class="board-item" *ngFor="let task of done" cdkDrag  (click)="detailTask(task.ts_id)"> 
               <div style="display: flex; align-items: center; justify-content: space-between;"> 
                 <div class="task-title">
                   <h5>{{task.ts_title}}</h5>
@@ -119,7 +119,7 @@
       </div>
 
       <div class="list-container" *ngIf="isList">
-        <div class="list-table">
+        <div class="list-table" (scroll)="onScroll($event)">
           <table>
             <thead>
               <tr>
@@ -133,7 +133,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let task of tasks">
+              <tr *ngFor="let task of displayedTasks" class="task-item" (click)="detailTask(task.ts_id)">
                 <td class="truncate" style="width: 18%; font-weight: 550;">{{task.ts_title}}</td>
                 <td class="truncate" style="width: 22%;">{{task.ts_subtitle}}</td>
                 <td class="center" style="width: 10%;">{{task.us_id}}</td>
@@ -144,10 +144,11 @@
                   class="center"
                   [ngStyle]="{
                     'background-color': getBackgroundColor(task.ts_status),
-                    'color': 'black',
+                    'color': '#333',
                     'padding': '10px',
-                    'border-radius': '15px',
-                    'font-size': '11px'
+                    'border-radius': '10px',
+                    'font-size': '11px',
+                    'border': 'none'
                   }"
                   [(ngModel)]="task.ts_status"
                   (ngModelChange)="onStatusChange(task, $event)">
@@ -162,9 +163,20 @@
                   </div>
                 </td>
               </tr>
+              <tr *ngIf="displayedTasks.length < tasks.length">
+                <td colspan="7">
+                  <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <span class="loading-text">Đang tải</span>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-</div>
+  </div>
+  
+  <div class="popup-overlay" *ngIf="isDetail" (click)="closeDetail()"></div>
+  <app-detail-task [tsId]="tsId" *ngIf="isDetail"></app-detail-task>

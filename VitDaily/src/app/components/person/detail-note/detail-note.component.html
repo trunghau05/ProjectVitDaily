@@ -17,7 +17,7 @@
                         <label for="" style="font-weight: 550;">Ghi chú</label>
                         <div class="note-content">
                             <div class="tool"></div>
-                            <textarea name="" id="" placeholder="Nhập nội dung ghi chú..." (input)="autoResize($event)" [(ngModel)]="newNote.nt_content"></textarea>
+                            <textarea #noteTextarea name="" id="" placeholder="Nhập nội dung ghi chú..." (input)="autoResize($event)" [(ngModel)]="newNote.nt_content"></textarea>
                         </div>
                     </div>
                     <div class="more">
@@ -47,7 +47,7 @@
             <div class="info">
                 <div class="toolbar">
                     <button id="pdf">PDF</button>
-                    <button id="close" (click)="close()">Hủy</button>
+                    <button id="close" (click)="toggleConfirm()">Xóa</button>
                     <button id="save" (click)="updateNote()">Lưu</button>
                 </div>
                 <div class="owner">
@@ -70,6 +70,23 @@
                                 <span>{{newNote.nt_date | formatDate}}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirm-backdrop" *ngIf="isConfirm" (click)="closeConfirm()"></div>
+            <div class="confirm-container" flexCenter *ngIf="isConfirm">
+                <div class="confirm-item" flexCenter>
+                    <div class="confirm-header">
+                        <div class="icon" flexCenter>
+                        <mat-icon style="color: rgb(197, 179, 47); height: 20px; width: 20px; font-size: 20px; ">priority_high</mat-icon>
+                        </div>
+                        <h3>Cảnh báo</h3>
+                    </div>
+                    <span>Hành động này sẽ xóa vĩnh viễn ghi chú của bạn!</span>
+                    <div class="btn">
+                        <button (click)="closeConfirm()">Hủy</button>
+                        <button (click)="deleteNote()">Xác nhận</button>
                     </div>
                 </div>
             </div>

@@ -28,23 +28,23 @@
     </div>
     <div class="person-item" *ngIf="isPersonOpen">
         <div class="nav-toggle"  
-            [style.background-color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'white !important' : 'transparent'"
-            [style.border-radius]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? '10px' : '10px'"
+            [style.background-color]="(isActive('note') || isActive('add-note') || isActive('person/detail-note')) ? 'white !important' : 'transparent'"
+            [style.border-radius]="(isActive('note') || isActive('add-note') || isActive('person/detail-note')) ? '10px' : '10px'"
             (click)="navigateTo('note')">
             <div class="ic flex-center">
-                <mat-icon [style.color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'rgb(0, 89, 184)' : 'white'">notes</mat-icon>
+                <mat-icon [style.color]="(isActive('note') || isActive('add-note') || isActive('person/detail-note')) ? 'rgb(0, 89, 184)' : 'white'">notes</mat-icon>
             </div>
-            <span id="txt" [style.color]="(isActive('note') || isActive('add-note') || isActive('detail-note')) ? 'rgb(0, 89, 184)' : 'white'">Ghi chú</span>
+            <span id="txt" [style.color]="(isActive('note') || isActive('add-note') || isActive('person/detail-note')) ? 'rgb(0, 89, 184)' : 'white'">Ghi chú</span>
         </div>
 
         <div class="nav-toggle"
-            [style.background-color]="isActive('task') ? 'white !important' : 'transparent'"
-            [style.border-radius]="isActive('task') ? '10px' : '10px'"
-            (click)="navigateTo('task')">
+            [style.background-color]="isActive('person/task') ? 'white !important' : 'transparent'"
+            [style.border-radius]="isActive('person/task') ? '10px' : '10px'"
+            (click)="navigateTo('person/task')">
             <div class="ic flex-center">
-                <mat-icon [style.color]="isActive('task') ? 'rgb(0, 89, 184)' : 'white'">work</mat-icon>
+                <mat-icon [style.color]="isActive('person/task') ? 'rgb(0, 89, 184)' : 'white'">work</mat-icon>
             </div>
-            <span id="txt" [style.color]="isActive('task') ? 'rgb(0, 89, 184)' : 'white'">Công việc</span>
+            <span id="txt" [style.color]="isActive('person/task') ? 'rgb(0, 89, 184)' : 'white'">Công việc</span>
         </div>
     </div>
 
@@ -66,13 +66,13 @@
         </div>
     </div>
 
-    <div class="btn-account"[style.background-color]="isActive('vitai') ? 'white !important' : 'transparent'"
-            [style.border-radius]="isActive('vitai') ? '10px' : '10px'"
-            (click)="navigateTo('vitai')">
+    <div class="btn-account"[style.background-color]="isActive('notification') ? 'white !important' : 'transparent'"
+            [style.border-radius]="isActive('notification') ? '10px' : '10px'"
+            (click)="navigateTo('notification')">
         <div class="ic flex-center">
-            <mat-icon>assistant_device</mat-icon>
+            <mat-icon>notifications</mat-icon>
         </div>
-        <span id="txt">Trợ lý Vịt</span>
+        <span id="txt">Thông báo</span>
     </div>
     
     <div class="btn-setting" style="margin-top: 0;">

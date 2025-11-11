@@ -1,0 +1,38 @@
+<div class="task-detail-slide">
+  <div class="task-detail-container">
+
+    <div class="task-main">
+      
+      <!-- Phần tiêu đề + trạng thái + ngày -->
+      <div class="task-header">
+        <div class="title-row">
+          <h2 class="task-title">{{ task.ts_title }}</h2>
+          <div class="right-info">
+            <span class="status"
+              [ngClass]="{
+                'status-done': task.ts_status === 2,
+                'status-pending': task.ts_status === 1
+              }">{{ getStatusText() }}</span>
+            <div class="date-range">
+              {{ task.ts_start | date:'dd/MM/yyyy' }} - {{ task.ts_end | date:'dd/MM/yyyy' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ghi chú -->
+      <div class="block note-block">
+        <label>Ghi chú</label>
+        <textarea readonly>{{ task.ts_note || 'Không có ghi chú' }}</textarea>
+      </div>
+
+      <!-- Mô tả -->
+      <div class="block desc-block">
+        <label>Mô tả</label>
+        <textarea readonly>{{ task.ts_subtitle || 'Không có mô tả' }}</textarea>
+      </div>
+
+    </div>
+
+  </div>
+</div>

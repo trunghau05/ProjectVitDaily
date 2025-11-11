@@ -46,7 +46,7 @@ export class NoteService {
     }
   }
 
-  async deleteNote(nt_id: string) {
+  async deleteNote(nt_id: string | null) {
     try {
       const respone = await axios.delete(this.apiUrl + 'delete/' + nt_id + '/');
       return respone.data;

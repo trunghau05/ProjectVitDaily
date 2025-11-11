@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     const route = this.router.url;
-    if (route.includes('/note') || route.includes('/task') || route.includes('/add-note') || route.includes('/detail-note')) {
+    if (route.includes('/note') || route.includes('person/task') || route.includes('/add-note') || route.includes('person/detail-note')) {
       this.isPersonOpen = true;
     }
   }

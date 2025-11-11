@@ -60,7 +60,7 @@ mat-icon {
 .note-item {
     width: 200px;
     height: auto;
-    padding: 20px;
+    padding: 20px 20px 30px 20px;
     border-radius: 15px;
     background-color: white;
     box-shadow: 5px 5px 5px rgba(235, 235, 235, 1);
@@ -70,30 +70,6 @@ mat-icon {
 
 .note-item:hover {
     transform: scale(1.05);
-}
-
-.info {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(126, 126, 126, 0.3);
-}
-
-.info span {
-    font-size: 14px;
-    font-weight: 550;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.img img {
-    height: 20px;
-    width: 20px;
 }
 
 .item {
@@ -112,10 +88,15 @@ mat-icon {
     text-overflow: ellipsis;
 }
 
+.title {
+    border-bottom: 1px solid #bbbbbb;
+    padding-bottom: 10px;
+}
+
 .note span {
     font-size: 14px;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
