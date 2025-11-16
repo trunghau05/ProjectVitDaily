@@ -1,0 +1,8 @@
+.search-input input {
+  height: 20px;
+  width: 450px;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.5);
+}/*# sourceMappingURL=search-bar.component.css.map */

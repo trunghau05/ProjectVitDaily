@@ -1,0 +1,243 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.ic-tool {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  width: 100%;
+}
+
+.ic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 35px;
+  font-weight: 550;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.5);
+  cursor: pointer;
+  transition: all ease-out 300ms;
+}
+
+.ic:hover {
+  background-color: rgb(1, 47, 95);
+  transition: all ease-in 300ms;
+}
+.ic:hover mat-icon {
+  color: white;
+  transition: all ease-in 300ms;
+}
+
+mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.note-container {
+  width: 100%;
+}
+
+.note-list {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.note-item {
+  width: 200px;
+  height: auto;
+  padding: 20px 20px 30px 20px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 5px 5px 5px rgb(235, 235, 235);
+  transition: transform ease-in 0.1s;
+  cursor: pointer;
+}
+
+.note-item:hover {
+  transform: scale(1.05);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title span {
+  font-weight: 550;
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  border-bottom: 1px solid #bbbbbb;
+  padding-bottom: 10px;
+}
+
+.note span {
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.date span {
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+.date .ic:hover {
+  background-color: rgb(196, 0, 0);
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.ft-item {
+  height: 25px;
+  width: 90px;
+  font-weight: 550;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.7);
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.ft-item.active {
+  background-color: rgb(1, 47, 95);
+  color: white;
+}
+
+.pagination {
+  margin-top: 10px;
+  gap: 15px;
+}
+.pagination .btn-prev,
+.pagination .btn-current,
+.pagination .btn-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.5);
+  cursor: pointer;
+  transition: all ease-out 0.3s;
+}
+.pagination .btn-prev.active,
+.pagination .btn-current.active,
+.pagination .btn-next.active {
+  background: rgb(1, 47, 95);
+  color: white;
+  font-weight: 550;
+}
+
+.confirm-container {
+  position: absolute;
+  height: calc(100vh - 100px);
+  z-index: 22;
+}
+
+.confirm-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 21;
+}
+
+.confirm-item {
+  flex-direction: column;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  gap: 15px;
+  width: 280px;
+  text-align: center;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn button {
+  height: 35px;
+  width: 100px;
+  font-weight: 550;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid rgba(126, 126, 126, 0.5);
+  cursor: pointer;
+  transition: all ease-in 300ms;
+}
+
+.btn button:hover {
+  background-color: rgb(1, 47, 95);
+  transition: all ease-in 300ms;
+  color: white;
+}
+.btn button:hover mat-icon {
+  color: white;
+  transition: all ease-in 300ms;
+}
+
+.icon {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgb(247, 247, 247);
+}
+
+.confirm-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(126, 126, 126, 0.5);
+  gap: 15px;
+}/*# sourceMappingURL=note.component.css.map */

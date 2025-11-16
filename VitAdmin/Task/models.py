@@ -72,3 +72,4 @@ class UsedTask(models.Model):
 
     def __str__(self):
         return f"{self.us.us_name} - {self.ts.ts_title}"
+

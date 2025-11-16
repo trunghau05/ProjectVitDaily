@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/* --- SLIDE PANEL CHUNG --- */
+.task-detail-slide {
+  position: fixed;
+  top: 0;
+  right: 0; /* ✅ đổi từ left -> right */
+  height: 100vh;
+  width: 500px;
+  background-color: #fafafa;
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.25); /* đổi hướng shadow */
+  border-radius: 5px;
+  padding: 40px;
+  z-index: 999;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  animation: slideInRight 0.35s ease forwards; /* ✅ đổi animation */
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* --- ANIMATION (slide từ bên phải) --- */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/* --- CONTAINER --- */
+.task-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* --- BLOCK CHUNG --- */
+.block {
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px rgb(235, 235, 235);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- HEADER BLOCK --- */
+.task-header .title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.task-header .task-title {
+  font-size: 22px;
+  font-weight: 650;
+  color: #222;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.right-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+
+.status {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.status-done {
+  color: #2ecc71;
+}
+
+.status-pending {
+  color: #f39c12;
+}
+
+.status-default {
+  color: #95a5a6;
+}
+
+/* --- DATE RANGE --- */
+.date-range {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* --- LABEL + TEXTAREA CHUNG --- */
+.block label {
+  font-weight: 550;
+  border-bottom: 1px solid rgba(126, 126, 126, 0.3);
+  padding-bottom: 8px;
+  color: #333;
+}
+
+.block textarea {
+  width: calc(100% - 30px);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(126, 126, 126, 0.3);
+  background-color: #f8f8f8;
+  resize: none;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* --- SCROLL NHẸ --- */
+.task-detail-slide::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-detail-slide::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}/*# sourceMappingURL=detail-task.component.css.map */

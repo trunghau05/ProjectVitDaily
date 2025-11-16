@@ -1,0 +1,28 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 20px;
+  color: #444;
+}
+.breadcrumb a {
+  color: #1976d2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb a.active {
+  font-weight: bold;
+}
+.breadcrumb .separator {
+  color: #aaa;
+}
+.breadcrumb .current {
+  font-weight: bold;
+  color: #444;
+}/*# sourceMappingURL=bread-crumb.component.css.map */
