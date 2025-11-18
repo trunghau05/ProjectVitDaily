@@ -3,12 +3,17 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexCenterDirective } from '../../../directives/flex-center/flex-center.directive';
 import { FormsModule } from '@angular/forms';
+<<<<<<< Updated upstream:VitDaily/src/app/components/person/detail-note/detail-note.component.ts
 import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
 import { NavbarComponent } from '../../navbar/navbar.component';
+=======
+import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
+>>>>>>> Stashed changes:VitDaily/src/app/components/detail-note/detail-note.component.ts
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from '../../../services/person/note.service';
 import { Note } from '../../../models/note.interface';
 import { Location } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-detail-note',
