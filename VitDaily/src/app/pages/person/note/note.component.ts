@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { SearchBarComponent } from "../../../components/search-bar/search-bar.component";
 import { MatIconModule } from '@angular/material/icon';
-import { Note } from '../../../models/note.interface';
+import { Note } from '../../../models/person/note.interface';
 import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
 import { CommonModule } from '@angular/common';
 import { FlexCenterDirective } from '../../../directives/flex-center/flex-center.directive';

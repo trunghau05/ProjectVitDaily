@@ -59,6 +59,7 @@
       type="text"
       placeholder="Nhắn tin cho trợ lý Vịt..."
       [(ngModel)]="usInput"
+      (keydown)="handleKeydown($event)"
     />
     <div class="vit-send" (click)="sendMessage()">
       <mat-icon>send</mat-icon>

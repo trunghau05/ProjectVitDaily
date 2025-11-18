@@ -1,182 +1,193 @@
 <div class="container flex-center">
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
-    <div class="content">
-      <div class="btn-container">
-        <div class="tab" flexCenter>
-          <div flexCenter class="btn" (click)="toggleList()" [style.background-color]="isList ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isList ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
-            <mat-icon [style.color]="isList ? 'white' : 'black'">sort</mat-icon>
-            <span [style.display]="isList ? 'block' : 'none'" [style.color]="isList ? 'white' : 'black'">List</span>
-          </div>  
-          <div flexCenter class="btn" (click)="toggleKanban()" [style.background-color]="isKanban ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isKanban ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
-              <mat-icon [style.color]="isKanban ? 'white' : 'black'">view_kanban</mat-icon>
-              <span [style.display]="isKanban ? 'block' : 'none'" [style.color]="isKanban ? 'white' : 'black'">Kanban</span>
-          </div>
-        </div>
-        <div class="tool" flexCenter style="gap: 20px;">
-          <div>
-            <app-search-bar placeholder="Tìm kiếm ghi chú..." *ngIf="isList"></app-search-bar>
-          </div>
-          <div class="ic">
-            <mat-icon>search</mat-icon>
-          </div>
-          <div class="ic">
-            <mat-icon>add</mat-icon>
-          </div>
+  <div class="content">
+    <div class="btn-container">
+      <div class="tab" flexCenter>
+        <div flexCenter class="btn" (click)="toggleList()" [style.background-color]="isList ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isList ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
+          <mat-icon [style.color]="isList ? 'white' : 'black'">sort</mat-icon>
+          <span [style.display]="isList ? 'block' : 'none'" [style.color]="isList ? 'white' : 'black'">List</span>
+        </div>  
+        <div flexCenter class="btn" (click)="toggleKanban()" [style.background-color]="isKanban ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isKanban ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
+            <mat-icon [style.color]="isKanban ? 'white' : 'black'">view_kanban</mat-icon>
+            <span [style.display]="isKanban ? 'block' : 'none'" [style.color]="isKanban ? 'white' : 'black'">Kanban</span>
         </div>
       </div>
-
-      <div class="kanban-container" *ngIf="isKanban">
-        <div class="todo board" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[doneList, doingList]" id="todoList">
-          <div class="header td">
-            <div flexCenter>
-              <h5>CÔNG VIỆC</h5>
-            </div>
-            <div class="count" flexCenter>
-              <span>8</span>
-            </div>
-          </div>
-          <div class="board-content">
-            <div class="board-item" *ngFor="let task of todo" cdkDrag (click)="detailTask(task.ts_id)">
-              <div style="display: flex; align-items: center; justify-content: space-between;"> 
-                <div class="task-title">
-                  <h5>{{task.ts_title}}</h5>
-                </div>
-                <div class="task-avatar">
-                  <div class="status" 
-                    [ngStyle]="{
-                      'background-color': getBackgroundColor(task.ts_status)}">
-                    {{getStatusText(task.ts_status)}}
-                  </div>
-                </div>
-              </div>
-              <div class="task-note">
-                <span>{{task.ts_note}}</span>
-              </div>
-            </div>
-          </div>
+      <div class="tool" flexCenter style="gap: 20px;">
+        <div>
+          <app-search-bar placeholder="Tìm kiếm công việc..." *ngIf="isList"></app-search-bar>
         </div>
-
-        <div class="doing board" cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing" (cdkDropListDropped)="drop($event)"  [cdkDropListConnectedTo]="[todoList, doneList]" id="doingList">
-          <div class="header doi">
-            <div flexCenter>
-              <h5>ĐANG LÀM</h5>
-            </div>
-            <div class="count" flexCenter>
-              <span>5</span>
-            </div>
-          </div>
-          <div class="board-content">
-            <div class="board-item" *ngFor="let task of doing" cdkDrag (click)="detailTask(task.ts_id)">
-              <div style="display: flex; align-items: center; justify-content: space-between;"> 
-                <div class="task-title">
-                  <h5>{{task.ts_title}}</h5>
-                </div>
-                <div class="task-avatar">
-                  <div class="status" 
-                    [ngStyle]="{
-                      'background-color': getBackgroundColor(task.ts_status)}">
-                    {{getStatusText(task.ts_status)}}
-                  </div>
-                </div>
-              </div>
-              <div class="task-note">
-                <span>{{task.ts_note}}</span>
-              </div>
-            </div>
-          </div>
+        <div class="ic">
+          <mat-icon>search</mat-icon>
         </div>
-
-        <div class="done board" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todoList, doingList]" id="doneList">
-          <div class="header don">
-            <div flexCenter>
-              <h5>HOÀN THÀNH</h5>
-            </div>
-            <div class="count" flexCenter>
-              <span>3</span>
-            </div>
-          </div>
-          <div class="board-content">
-            <div class="board-item" *ngFor="let task of done" cdkDrag  (click)="detailTask(task.ts_id)"> 
-              <div style="display: flex; align-items: center; justify-content: space-between;"> 
-                <div class="task-title">
-                  <h5>{{task.ts_title}}</h5>
-                </div>
-                <div class="task-avatar">
-                  <div class="status" 
-                    [ngStyle]="{
-                      'background-color': getBackgroundColor(task.ts_status)}">
-                    {{getStatusText(task.ts_status)}}
-                  </div>
-                </div>
-              </div>
-              <div class="task-note">
-                <span>{{task.ts_note}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="list-container" *ngIf="isList">
-        <div class="list-table" (scroll)="onScroll($event)">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 18%;" class="left">Tiêu đề</th>
-                <th style="width: 22%;" class="left">Mô tả</th>
-                <th style="width: 10%;" class="center">Được giao</th>
-                <th style="width: 15%;" class="center">Bắt đầu</th>
-                <th style="width: 15%;" class="center">Kết thúc</th>
-                <th style="width: 15%;" class="center">Trạng thái</th>
-                <th style="width: 5%;" class="center">Tool</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let task of displayedTasks" class="task-item" (click)="detailTask(task.ts_id)">
-                <td class="truncate" style="width: 18%; font-weight: 550;">{{task.ts_title}}</td>
-                <td class="truncate" style="width: 22%;">{{task.ts_subtitle}}</td>
-                <td class="center" style="width: 10%;">{{task.us_id}}</td>
-                <td class="center" style="width: 15%;">{{task.ts_start}}</td>
-                <td class="center" style="width: 15%;">{{task.ts_end}}</td>
-                <td class="center" style="width: 15%;">
-                  <select
-                  class="center"
-                  [ngStyle]="{
-                    'background-color': getBackgroundColor(task.ts_status),
-                    'color': '#333',
-                    'padding': '10px',
-                    'border-radius': '10px',
-                    'font-size': '11px',
-                    'border': 'none'
-                  }"
-                  [(ngModel)]="task.ts_status"
-                  (ngModelChange)="onStatusChange(task, $event)">
-                  <option [value]="0">{{getStatusText(0)}}</option>
-                  <option [value]="1">{{getStatusText(1)}}</option>
-                  <option [value]="2">{{getStatusText(2)}}</option>
-                </select>
-                </td>
-                <td class="center" style="width: 5%;">
-                  <div class="ic">
-                    <mat-icon>arrow_drop_down</mat-icon>
-                  </div>
-                </td>
-              </tr>
-              <tr *ngIf="displayedTasks.length < tasks.length">
-                <td colspan="7">
-                  <div class="loading-container">
-                    <div class="loading-spinner"></div>
-                    <span class="loading-text">Đang tải</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="ic" (click)="addTask()">
+          <mat-icon>add</mat-icon>
         </div>
       </div>
     </div>
+
+    <div class="kanban-container" *ngIf="isKanban">
+      <div class="todo board" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[doneList, doingList]" id="todoList">
+        <div class="header td">
+          <div flexCenter>
+            <h5>CÔNG VIỆC</h5>
+          </div>
+          <div class="count" flexCenter>
+            <span>8</span>
+          </div>
+        </div>
+        <div class="board-content">
+          <div class="board-item" *ngFor="let task of todo" cdkDrag (click)="detailTask(task.ts_id)">
+            <div style="display: flex; align-items: center; justify-content: space-between;"> 
+              <div class="task-title">
+                <h5>{{task.ts_title}}</h5>
+              </div>
+              <div class="task-avatar">
+                <div class="status" 
+                  [ngStyle]="{
+                    'background-color': getBackgroundColor(task.ts_status)}">
+                  {{getStatusText(task.ts_status)}}
+                </div>
+              </div>
+            </div>
+            <div class="task-note">
+              <span>{{task.ts_note}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doing board" cdkDropList #doingList="cdkDropList" [cdkDropListData]="doing" (cdkDropListDropped)="drop($event)"  [cdkDropListConnectedTo]="[todoList, doneList]" id="doingList">
+        <div class="header doi">
+          <div flexCenter>
+            <h5>ĐANG LÀM</h5>
+          </div>
+          <div class="count" flexCenter>
+            <span>5</span>
+          </div>
+        </div>
+        <div class="board-content">
+          <div class="board-item" *ngFor="let task of doing" cdkDrag (click)="detailTask(task.ts_id)">
+            <div style="display: flex; align-items: center; justify-content: space-between;"> 
+              <div class="task-title">
+                <h5>{{task.ts_title}}</h5>
+              </div>
+              <div class="task-avatar">
+                <div class="status" 
+                  [ngStyle]="{
+                    'background-color': getBackgroundColor(task.ts_status)}">
+                  {{getStatusText(task.ts_status)}}
+                </div>
+              </div>
+            </div>
+            <div class="task-note">
+              <span>{{task.ts_note}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="done board" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[todoList, doingList]" id="doneList">
+        <div class="header don">
+          <div flexCenter>
+            <h5>HOÀN THÀNH</h5>
+          </div>
+          <div class="count" flexCenter>
+            <span>3</span>
+          </div>
+        </div>
+        <div class="board-content">
+          <div class="board-item" *ngFor="let task of done" cdkDrag  (click)="detailTask(task.ts_id)"> 
+            <div style="display: flex; align-items: center; justify-content: space-between;"> 
+              <div class="task-title">
+                <h5>{{task.ts_title}}</h5>
+              </div>
+              <div class="task-avatar">
+                <div class="status" 
+                  [ngStyle]="{
+                    'background-color': getBackgroundColor(task.ts_status)}">
+                  {{getStatusText(task.ts_status)}}
+                </div>
+              </div>
+            </div>
+            <div class="task-note">
+              <span>{{task.ts_note}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-container" *ngIf="isList">
+      <div class="list-table" (scroll)="onScroll($event)">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25%;" class="left">Tiêu đề</th>
+              <th style="width: 25%;" class="left">Mô tả</th>
+              <th style="width: 15%;" class="center">Bắt đầu</th>
+              <th style="width: 15%;" class="center">Kết thúc</th>
+              <th style="width: 15%;" class="center">Trạng thái</th>
+              <th style="width: 5%;" class="center">Tool</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of displayedTasks" class="task-item" (click)="detailTask(task.ts_id)">
+              <td class="truncate" style="width: 25%; font-weight: 550;">{{task.ts_title}}</td>
+              <td class="truncate" style="width: 25%;">{{task.ts_subtitle}}</td>
+              <td class="center" style="width: 15%;">{{task.ts_start}}</td>
+              <td class="center" style="width: 15%;">{{task.ts_end}}</td>
+              <td class="center" style="width: 15%;">
+                <select
+                class="center"
+                (click)="$event.stopPropagation()"
+                [ngStyle]="{
+                  'background-color': getBackgroundColor(task.ts_status),
+                  'color': '#333',
+                  'padding': '10px',
+                  'border-radius': '10px',
+                  'font-size': '11px',
+                  'border': 'none',
+                  'cursor': 'pointer'
+                }"
+                [(ngModel)]="task.ts_status"
+                (ngModelChange)="onStatusChange(task, $event)">
+                <option [value]="0">{{getStatusText(0)}}</option>
+                <option [value]="1">{{getStatusText(1)}}</option>
+                <option [value]="2">{{getStatusText(2)}}</option>
+              </select>
+              </td>
+              <td class="center" style="width: 5%;">
+                <div class="ic">
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="displayedTasks.length < tasks.length">
+              <td colspan="7">
+                <div class="loading-container">
+                  <div class="loading-spinner"></div>
+                  <span class="loading-text">Đang tải</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  
-  <div class="popup-overlay" *ngIf="isDetail" (click)="closeDetail()"></div>
-  <app-detail-task [tsId]="tsId" *ngIf="isDetail"></app-detail-task>
+</div>
+
+<app-detail-task 
+  [tsId]="tsId" 
+  (close)="closeDetail()" 
+  (saved)="onTaskSaved($event)" 
+  (deleted)="onTaskDeleted($event)" 
+  *ngIf="isDetail">
+</app-detail-task>
+
+<app-add-task
+  (close)="closeAdd()"
+  (add)="onTaskSaved($event)"
+  *ngIf="isAdd"
+></app-add-task>

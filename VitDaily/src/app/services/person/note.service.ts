@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { Note } from '../../models/note.interface';
+import { Note } from '../../models/person/note.interface';
 
 @Injectable({
   providedIn: 'root'

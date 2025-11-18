@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'VitAi',
     'Workspace',
     'Team',
+    'Member',
     'rest_framework',
 ]
 

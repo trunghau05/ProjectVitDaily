@@ -22,6 +22,9 @@ export class NavbarComponent implements OnInit {
     if (route.includes('/note') || route.includes('person/task') || route.includes('/add-note') || route.includes('person/detail-note')) {
       this.isPersonOpen = true;
     }
+    if (route.includes('workspace')) {
+      this.isPeopleOpen = true;
+    }
   }
 
   togglePerson() {

@@ -1,1 +1,82 @@
-<p>workspace works!</p>
+<div class="container flex-center">
+    <app-navbar></app-navbar>
+
+    <div class="content">
+        <div class="header">
+            <div style="margin-left: 30px; font-size: 20px;">
+                <h2>Workspaces</h2>
+            </div>
+            <div class="toolbar">
+                <div flexCenter style="gap: 20px;">
+                    <app-search-bar placeholder="Tìm kiếm không gian nhóm..."></app-search-bar>
+                    <div class="ic">
+                        <mat-icon>search</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workspace-container">
+            <div class="workspace-list">
+                <div class="workspace-group">
+                    <h3 class="group-title">Đã khởi tạo</h3>
+                    <div class="group-items">
+                        <div class="workspace-item" *ngFor="let w of ownerWorkspaces">
+                            <div class="workspace-card-header">
+                                <div class="avatar-badge" flexCenter>
+                                    <mat-icon>workspace_premium</mat-icon>
+                                </div>
+                                <div class="workspace-card-title">{{w.ws_name}}</div>
+                                <div class="workspace-card-label">{{w.ws_label}}</div>
+                            </div>
+                            <div class="workspace-card-meta">Created at: {{w.created_at | formatDate}}</div>
+                            <div class="workspace-card-desc">{{w.ws_note}}</div>
+                            <div class="workspace-card-avatars">
+                                <ng-container *ngFor="let img of getMemberImagesByWorkspace(w)">
+                                    <img [src]="img" />
+                                </ng-container>
+                                <div class="more" *ngIf="w.members && w.members.length > 3">
+                                    +{{ w.members.length - 3 }} more
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-btn" (click)="openAdd()">
+                            <div class="add-item">
+                                <mat-icon>add</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workspace-group">
+                    <h3 class="group-title">Đã tham gia</h3>
+                    <div class="group-items">
+                        <div class="workspace-item" *ngFor="let w of memberWorkspaces">
+                            <div class="workspace-card-header">
+                                <div class="avatar-badge" flexCenter>
+                                    <mat-icon>dataset</mat-icon>
+                                </div>
+                                <div class="workspace-card-title">{{w.ws_name}}</div>
+                                <div class="workspace-card-label">{{w.ws_label}}</div>
+                            </div>
+                            <div class="workspace-card-meta">Create at: {{w.created_at | formatDate}}</div>
+                            <div class="workspace-card-desc">{{w.ws_note}}</div>
+                            <div class="workspace-card-avatars">
+                                <ng-container *ngFor="let img of getMemberImagesByWorkspace(w)">
+                                    <img [src]="img" />
+                                </ng-container>
+                                <div class="more" *ngIf="w.members && w.members.length > 3">
+                                    +{{ w.members.length - 3 }} more
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-add-workspace 
+    *ngIf="isAdd"
+    (close)="closeAdd()"
+></app-add-workspace>
