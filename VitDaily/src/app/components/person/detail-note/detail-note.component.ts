@@ -11,7 +11,7 @@ import { FormatDatePipe } from '../../pipes/format-date/format-date.pipe';
 >>>>>>> Stashed changes:VitDaily/src/app/components/detail-note/detail-note.component.ts
 import { ActivatedRoute } from '@angular/router';
 import { NoteService } from '../../../services/person/note.service';
-import { Note } from '../../../models/note.interface';
+import { Note } from '../../../models/person/note.interface';
 import { Location } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
 

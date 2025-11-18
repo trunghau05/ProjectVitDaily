@@ -5,15 +5,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag, CdkDropList, } from '@angular/cdk/drag-drop';
 import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
-import { Task } from '../../../models/task.interface';
+import { Task } from '../../../models/person/task.interface';
+import { User } from '../../../models/user.interface'; 
 import { TaskService } from '../../../services/person/task.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DetailTaskComponent } from '../../../components/person/detail-task/detail-task.component';
+import { AddTaskComponent } from "../../../components/person/add-task/add-task.component";
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-task',
-  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent, FormsModule, DetailTaskComponent],
+  imports: [NavbarComponent, FlexCenterDirective, MatIconModule, CommonModule, CdkDrag, CdkDropList, SearchBarComponent, FormsModule, DetailTaskComponent, AddTaskComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
@@ -21,9 +24,12 @@ export class TaskComponent implements OnInit{
   isKanban: boolean = false;
   isList: boolean = true;
   isDetail: boolean = false;
+  isAdd: boolean = false;
   optionOpen: boolean = false;
   usId = '';
   tsId = '';
+
+  usInfo = {} as User;
 
   tasks: Task[] = [];
   displayedTasks: Task[] = []; 
@@ -36,14 +42,13 @@ export class TaskComponent implements OnInit{
 
   async ngOnInit() {
     this.usId = sessionStorage.getItem('us_id') || '';
+    if(this.usId) {
+      this.usInfo = await this.userService.userInfo(this.usId);
+    }
     await this.taskList();
-
-    this.todo = this.tasks.filter(task => task.ts_status === 0); 
-    this.doing = this.tasks.filter(task => task.ts_status === 1);
-    this.done = this.tasks.filter(task => task.ts_status === 2);
   }
 
-  constructor(private taskService: TaskService, private router: Router) {}
+  constructor(private taskService: TaskService, private router: Router, private userService: UserService) {}
 
   toggleList() {
     this.isList = true;
@@ -83,7 +88,12 @@ export class TaskComponent implements OnInit{
       this.tasks = respone;
       this.currentPage = 0;        
       this.displayedTasks = [];    
-      this.loadMoreTasks();  
+      this.loadMoreTasks();
+      
+      this.todo = this.tasks.filter(task => task.ts_status === 0); 
+      this.doing = this.tasks.filter(task => task.ts_status === 1);
+      this.done = this.tasks.filter(task => task.ts_status === 2);
+      
       console.log(this.tasks)            
     } catch (error) {
       Response.error;
@@ -155,7 +165,23 @@ export class TaskComponent implements OnInit{
     this.isDetail = true;
   }
 
+  addTask() {
+    this.isAdd = true;
+  }
+
+  closeAdd() {
+    this.isAdd = false;
+  }
+
   closeDetail() {
     this.isDetail = false;
+  }
+
+  async onTaskSaved(updatedTask: Task): Promise<void> {
+    await this.taskList();
+  }
+
+  async onTaskDeleted(deletedId: string): Promise<void> {
+    await this.taskList();
   }
 }

@@ -37,7 +37,14 @@ export class VitaiComponent {
   }
 
   navigateTo(route: string) {
-    this.router.navigate([`/detail-note/${route}`]);
+    this.router.navigate([`/person/detail-note/${route}`]);
+  }
+
+  handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); 
+      this.sendMessage();
+    }
   }
 
   async sendMessage() {

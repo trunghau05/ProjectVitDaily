@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { FormsModule } from "@angular/forms";
-import { Note } from '../../../models/note.interface';
+import { Note } from '../../../models/person/note.interface';
 import { NoteService } from '../../../services/person/note.service';
 import { Location } from '@angular/common';
 

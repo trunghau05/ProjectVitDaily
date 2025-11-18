@@ -58,11 +58,14 @@
         </div>
     </div>
     <div class="people-item" *ngIf="isPeopleOpen">
-        <div class="nav-toggle">
+        <div class="nav-toggle"
+            [style.background-color]="isActive('workspace') ? 'white !important' : 'transparent'"
+            [style.border-radius]="isActive('workspace') ? '10px' : '10px'"
+            (click)="navigateTo('workspace')">
             <div class="ic flex-center">
-                <mat-icon>workspaces</mat-icon>
+                <mat-icon [style.color]="isActive('workspace') ? 'rgb(0, 89, 184)' : 'white'">workspaces</mat-icon>
             </div>
-            <span id="txt">Workspace</span>
+            <span id="txt" [style.color]="isActive('workspace') ? 'rgb(0, 89, 184)' : 'white'">Workspace</span>
         </div>
     </div>
 

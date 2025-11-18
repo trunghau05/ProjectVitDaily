@@ -1,38 +1,51 @@
+<div class="popup-overlay"></div>
+
 <div class="task-detail-slide">
+  <div class="slide-header">
+    <button class="close-btn" (click)="closeDetail()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <input type="text" class="title" [(ngModel)]="task.ts_title" name="title" placeholder="e.g. Học tiếng Anh" />
+    <button class="focus-btn" (click)="focusTask()">
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+  </div>
+
   <div class="task-detail-container">
-
-    <div class="task-main">
-      
-      <!-- Phần tiêu đề + trạng thái + ngày -->
-      <div class="task-header">
-        <div class="title-row">
-          <h2 class="task-title">{{ task.ts_title }}</h2>
-          <div class="right-info">
-            <span class="status"
-              [ngClass]="{
-                'status-done': task.ts_status === 2,
-                'status-pending': task.ts_status === 1
-              }">{{ getStatusText() }}</span>
-            <div class="date-range">
-              {{ task.ts_start | date:'dd/MM/yyyy' }} - {{ task.ts_end | date:'dd/MM/yyyy' }}
-            </div>
-          </div>
-        </div>
+    <form class="task-form">
+      <div class="form-group">
+        <label>Ngày bắt đầu</label>
+        <input type="date" class="form-input" [(ngModel)]="task.ts_start" name="start" />
       </div>
 
-      <!-- Ghi chú -->
-      <div class="block note-block">
+      <div class="form-group">
+        <label>Ngày kết thúc</label>
+        <input type="date" class="form-input" [(ngModel)]="task.ts_end" name="end" />
+      </div>
+
+      <div class="form-group">
         <label>Ghi chú</label>
-        <textarea readonly>{{ task.ts_note || 'Không có ghi chú' }}</textarea>
+        <textarea class="form-textarea" [(ngModel)]="task.ts_note" name="note" placeholder="Không có ghi chú"></textarea>
       </div>
 
-      <!-- Mô tả -->
-      <div class="block desc-block">
+      <div class="form-group">
         <label>Mô tả</label>
-        <textarea readonly>{{ task.ts_subtitle || 'Không có mô tả' }}</textarea>
+        <textarea class="form-textarea" [(ngModel)]="task.ts_subtitle" name="subtitle" placeholder="Không có mô tả"></textarea>
       </div>
 
-    </div>
+      <div class="form-group">
+        <label>Trạng thái</label>
+        <select class="form-select" [(ngModel)]="task.ts_status" name="status">
+          <option [value]="0">Chưa bắt đầu</option>
+          <option [value]="1">Đang tiến hành</option>
+          <option [value]="2">Đã hoàn thành</option>
+        </select>
+      </div>
 
+      <div class="form-actions">
+        <button type="button" class="btn-save" (click)="saveTask()">Lưu công việc</button>
+        <button type="button" class="btn-delete" (click)="deleteTask()">Xóa</button>
+      </div>
+    </form>
   </div>
 </div>

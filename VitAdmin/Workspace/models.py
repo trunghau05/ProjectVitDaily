@@ -1,20 +1,10 @@
 from mongoengine import *
 
 
-class Member(EmbeddedDocument):
-    role = StringField(required=True, max_length=50)
-    us_id = StringField(required=True) 
-    joined_at = DateField(required=True)
-    
-    def __str__(self):
-        return f"{self.us_id} - {self.role}"
-
-
 class Team(Document):
     tm_id = StringField(primary_key=True, required=True)
     tm_name = StringField(required=True, max_length=100)
     tm_desc = StringField(max_length=255)
-    members = ListField(EmbeddedDocumentField(Member))
     created_at = DateField(required=True)
     ws_id = StringField(required=True) 
 
@@ -24,9 +14,22 @@ class Team(Document):
         return self.tm_name
 
 
+class Member(EmbeddedDocument):
+    role = StringField(required=True, max_length=50)
+    us_id = StringField(required=True) 
+    joined_at = DateField(required=True)
+    
+    def __str__(self):
+        return f"{self.us_id} - {self.role}"
+
+
 class WorkSpace(Document):
     ws_id = StringField(primary_key=True, required=True)
     ws_name = StringField(required=True, max_length=100)
+    ws_label = StringField(required=True)
+    ws_note = StringField(max_length=255)
+    members = ListField(EmbeddedDocumentField(Member))
+    created_at = DateField(required=True)
     owner_id = StringField(required=True) 
     
     meta = {'collection': 'workspace'}
@@ -40,9 +43,6 @@ class Subtask(EmbeddedDocument):
     st_title = StringField(required=True, max_length=100)
     st_subtitle = StringField(max_length=100)
     st_note = StringField(required=False)
-    st_status = BooleanField(default=False)
-    st_start = DateField(required=True)
-    st_end = DateField(required=True)
 
     def __str__(self):
         return self.st_title
