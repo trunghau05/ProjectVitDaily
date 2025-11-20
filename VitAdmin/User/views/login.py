@@ -5,6 +5,10 @@ from Common.models import User, Verification
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 @api_view(['POST'])
 def Login(request):
@@ -13,41 +17,48 @@ def Login(request):
         password = request.data.get('us_password')
 
         if not email or not password:
-            return Response({"error": "Thiếu email hoặc mật khẩu"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Thiếu email hoặc mật khẩu"}, status=400)
 
         try:
             user = User.objects.get(us_email=email)
         except User.DoesNotExist:
-            return Response({"error": "Email không tồn tại"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Email không tồn tại"}, status=404)
 
-        #Kiểm tra đã xác minh OTP chưa
-        verification = Verification.objects.filter(us=user, vc_status=True).exists()
-        if not verification:
-            return Response({"error": "Tài khoản chưa được xác minh OTP"}, status=status.HTTP_403_FORBIDDEN)
+        # OTP chưa xác minh
+        if not Verification.objects.filter(us=user, vc_status=True).exists():
+            return Response({"error": "Tài khoản chưa xác minh OTP"}, status=403)
 
-        #Kiểm tra tài khoản đang bị khóa tạm thời
         if user.is_locked():
             remaining = int((user.lock_until - timezone.now()).total_seconds() // 60)
-            return Response({
-                "error": f"Tài khoản tạm khóa. Vui lòng thử lại sau {remaining} phút."
-            }, status=status.HTTP_403_FORBIDDEN)
+            return Response({"error": f"Tài khoản tạm khóa {remaining} phút"}, status=403)
 
-        # Kiểm tra mật khẩu
-        if not check_password(password, user.us_password):
+        if not user.check_password(password):
             user.register_failed_attempt()
             if user.is_locked():
                 lock_minutes = int((user.lock_until - timezone.now()).total_seconds() // 60)
-                return Response({
-                    "error": f"Sai mật khẩu nhiều lần. Tài khoản tạm khóa trong {lock_minutes} phút."
-                }, status=status.HTTP_403_FORBIDDEN)
+                return Response({"error": f"Sai mật khẩu nhiều lần. Khóa {lock_minutes} phút"}, status=403)
             else:
-                return Response({
-                    "error": f"Sai mật khẩu. Còn {3 - user.failed_attempts} lần thử trước khi bị khóa."
-                }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": f"Sai mật khẩu. Còn {3 - user.failed_attempts} lần thử"}, status=400)
 
-        #Đăng nhập thành công → reset lại bộ đếm
+        # Reset lock
         user.reset_lock()
 
+        # =========================
+        # 1️⃣ LƯU USER VÀO SESSION
+        # =========================
+        request.session['user_id'] = user.us_id
+        request.session.set_expiry(24 * 60 * 60)  # 24h
+
+        # =========================
+        # 2️⃣ TẠO JWT TOKEN CUSTOM
+        # =========================
+        refresh = RefreshToken()
+        refresh['user_id'] = user.us_id  # dùng us_id thay vì id
+        access = refresh.access_token
+
+        # =========================
+        # 3️⃣ TRẢ KẾT QUẢ
+        # =========================
         return Response({
             "message": "Đăng nhập thành công",
             "user": {
@@ -55,8 +66,12 @@ def Login(request):
                 "us_name": user.us_name,
                 "us_email": user.us_email,
                 "us_img": user.us_img
+            },
+            "token": {
+                "refresh": str(refresh),
+                "access": str(access)
             }
-        }, status=status.HTTP_200_OK)
+        }, status=200)
 
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": str(e)}, status=500)

@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import get, login, register,otp
+from .views import get, login, register,otp,check_session
 
 urlpatterns = [
     path('get_user_by_id/<str:us_id>/', get.get_user_by_id, name='get_user_by_id'),
     path('login/', login.Login, name='login'),
     path('register/', register.Register, name='register'),
     path('verify_otp/', otp.VerifyOTP, name='verify_otp'),
+    path('check_session/', check_session.CheckSession, name='check_session'),
 ]

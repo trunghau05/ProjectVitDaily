@@ -1,10 +1,6 @@
 from django.http import JsonResponse
-<<<<<<< HEAD
 from Common.models import Task
-=======
 from ..models import Task
->>>>>>> bac1653 (update code tu main)
-
 def TaskList(request):
     us_id = request.GET.get("us_id")  
     if not us_id:
