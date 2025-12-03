@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { WorkspaceService } from '../../../services/people/workspace.service';
 import { WorkSpace, Member } from '../../../models/people/workspace.interface';
 import { UserService } from '../../../services/user.service';
+import { MemberService } from '../../../services/people/member.service';
 
 @Component({
   selector: 'app-add-workspace',
@@ -19,10 +20,12 @@ export class AddWorkspaceComponent {
   newWorkspace = {} as WorkSpace;
   members: Member[]  = [];
   newMembers = [];
+  usId: string | null = sessionStorage.getItem('us_id');
   email = '';
   role = '';
+  wsId = '';
 
-  constructor(private workspaceService: WorkspaceService, private userService: UserService) {}
+  constructor(private workspaceService: WorkspaceService, private userService: UserService, private memberService: MemberService) {}
 
   closeAdd() {
     this.close.emit();
@@ -30,14 +33,26 @@ export class AddWorkspaceComponent {
 
   async addWorkspace() {
     try {
-      this.newWorkspace.members = this.members;
+      this.newWorkspace.owner_id = this.usId || '';
       const response = await this.workspaceService.addWorkspace(this.newWorkspace);
+      this.wsId = response.data.ws_id;
       console.log(response);
+      console.log(this.wsId);
       alert("Thêm workspace thành công!");
-      this.add.emit();
     } catch (error) {
       console.error("Lỗi khi thêm workspace:", error);
     }
+
+    try {
+      const data: any = {ws_id: this.wsId, members: this.members};
+      const response = await this.memberService.addMembers(data);
+      console.log(response);
+    } catch (error) {
+      console.error("Lỗi khi thêm thành viên:", error);
+    }
+
+    this.add.emit();
+    this.closeAdd();
   }
 
   async addUserByEmail() {

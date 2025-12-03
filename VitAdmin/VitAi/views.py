@@ -9,9 +9,13 @@ def ai_view(request):
         try:
             data = json.loads(request.body)
             us_input = data.get("us_input")
+            us_id = data.get("us_id")  # Lấy us_id từ POST
             if not us_input:
                 return JsonResponse({"error": "us_input is required"}, status=400)
-            result, intent = run_ai(us_input)
+            if not us_id:
+                return JsonResponse({"error": "us_id is required"}, status=400)
+
+            result, intent = run_ai(us_input, us_id=us_id)  # Truyền us_id vào run_ai
             return JsonResponse({"intent": intent, "result": result})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)

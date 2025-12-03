@@ -16,6 +16,7 @@ export class VitaiComponent {
   @ViewChild('chatContent') private chatContent!: ElementRef;
   isOpen = false;
   usInput = '';
+  usId = sessionStorage.getItem('us_id');
   objectKeys = Object.keys;
 
   messages: { from: 'user' | 'bot', text?: string, json?: any }[] = [];
@@ -40,6 +41,10 @@ export class VitaiComponent {
     this.router.navigate([`/person/detail-note/${route}`]);
   }
 
+  navigateToTask(ts_id: string) {
+    this.router.navigate([`/person/detail-task/${ts_id}`]);
+  }
+
   handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault(); 
@@ -52,7 +57,7 @@ export class VitaiComponent {
     this.messages.push({ from: 'user', text: this.usInput });
     
     try {
-      const response = await this.vitaiService.chatVitai(this.usInput);
+      const response = await this.vitaiService.chatVitai(this.usInput, this.usId);
       let result = response.result || 'Xin lỗi, tôi chưa hiểu.';
 
       const jsonMatch = result.match(/```json([\s\S]*?)```/);

@@ -27,6 +27,32 @@
     >
       <span *ngIf="msg.text">{{ msg.text }}</span>
 
+      <div *ngIf="msg.json?.tasks">
+        <div
+          class="task-item"
+          *ngFor="let task of msg.json.tasks"
+          (click)="navigateToTask(task.ts_id)"
+        >
+          <div class="item">
+            <div class="date">
+              <span>{{ task.ts_date | date:'short' }}</span>
+              <div class="ic-note">
+                <mat-icon>assignment</mat-icon>
+              </div>
+            </div>
+
+            <div class="title">
+              <span>{{ task.ts_title || "Không có tiêu đề" }}</span>
+            </div>
+
+            <div class="note">
+              <span>{{ task.ts_content || "..." }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div *ngIf="msg.json">
         <div
           class="note-item"

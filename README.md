@@ -1,4 +1,5 @@
 Django
+cd VitAdmin
 pip install django
 pip show django
 python -m django startproject "tên dự án"
@@ -15,6 +16,7 @@ python manage.py runserver
 python manage.py startapp “chức năng”
 ---
 Angular
+cd VitDaily
 npm install -g @angular/cli
 npm install @angular/router
 ng add @angular/material

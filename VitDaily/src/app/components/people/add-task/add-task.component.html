@@ -1,0 +1,47 @@
+<div class="popup-overlay"></div>
+
+<div class="task-detail-slide">
+  <div class="slide-header">
+    <button class="close-btn" (click)="closeAdd()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <input type="text" class="title" [(ngModel)]="task.ts_title" name="title" placeholder="Nhập tiêu đề công việc" />
+  </div>
+
+  <div class="task-detail-container">
+    <form class="task-form">
+      <div class="form-group">
+        <label>Ngày bắt đầu</label>
+        <input type="date" class="form-input" [(ngModel)]="task.ts_start" name="start" />
+      </div>
+
+      <div class="form-group">
+        <label>Ngày kết thúc</label>
+        <input type="date" class="form-input" [(ngModel)]="task.ts_end" name="end" />
+      </div>
+
+      <div class="form-group">
+        <label>Ghi chú</label>
+        <textarea class="form-textarea" [(ngModel)]="task.ts_note" name="note" placeholder="Nhập ghi chú công việc"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Mô tả</label>
+        <textarea class="form-textarea" [(ngModel)]="task.ts_subtitle" name="subtitle" placeholder="Nhập mô tả"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Trạng thái</label>
+        <select class="form-select" [(ngModel)]="task.ts_status" name="status">
+          <option [value]="0">Chưa bắt đầu</option>
+          <option [value]="1">Đang tiến hành</option>
+          <option [value]="2">Đã hoàn thành</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-save" (click)="addTask()">Lưu công việc</button>
+      </div>
+    </form>
+  </div>
+</div>

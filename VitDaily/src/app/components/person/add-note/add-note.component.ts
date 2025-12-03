@@ -11,12 +11,13 @@ import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-note',
-  imports: [FlexCenterDirective, CommonModule, MatIconModule, FormatDatePipe, NavbarComponent, FormsModule],
+  imports: [FlexCenterDirective, CommonModule, MatIconModule, FormatDatePipe, NavbarComponent, FormsModule, FlexCenterDirective],
   templateUrl: './add-note.component.html',
   styleUrl: './add-note.component.scss'
 })
 export class AddNoteComponent {
   date = new Date();
+  usId = sessionStorage.getItem('us_id') || '';
   newNote: Note = {
     nt_id: '',
     nt_title: '',
@@ -25,7 +26,7 @@ export class AddNoteComponent {
     nt_img: null,
     nt_pdf: null,
     nt_date: new Date().toISOString(),
-    us_id: 'US001'
+    us_id: this.usId,
   };
 
   constructor(private noteService: NoteService, private location: Location) {}

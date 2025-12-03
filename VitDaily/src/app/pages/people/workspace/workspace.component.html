@@ -3,9 +3,6 @@
 
     <div class="content">
         <div class="header">
-            <div style="margin-left: 30px; font-size: 20px;">
-                <h2>Workspaces</h2>
-            </div>
             <div class="toolbar">
                 <div flexCenter style="gap: 20px;">
                     <app-search-bar placeholder="Tìm kiếm không gian nhóm..."></app-search-bar>
@@ -21,7 +18,7 @@
                 <div class="workspace-group">
                     <h3 class="group-title">Đã khởi tạo</h3>
                     <div class="group-items">
-                        <div class="workspace-item" *ngFor="let w of ownerWorkspaces">
+                        <div class="workspace-item" *ngFor="let w of ownerWorkspaces" (click)="openDetail(w.ws_id)">
                             <div class="workspace-card-header">
                                 <div class="avatar-badge" flexCenter>
                                     <mat-icon>workspace_premium</mat-icon>
@@ -51,7 +48,7 @@
                 <div class="workspace-group">
                     <h3 class="group-title">Đã tham gia</h3>
                     <div class="group-items">
-                        <div class="workspace-item" *ngFor="let w of memberWorkspaces">
+                        <div class="workspace-item" *ngFor="let w of memberWorkspaces" (click)="openDetail(w.ws_id)">
                             <div class="workspace-card-header">
                                 <div class="avatar-badge" flexCenter>
                                     <mat-icon>dataset</mat-icon>
@@ -79,4 +76,12 @@
 <app-add-workspace 
     *ngIf="isAdd"
     (close)="closeAdd()"
+    (add)="add()"
 ></app-add-workspace>
+
+<app-detail-workspace
+    *ngIf="isDetail"
+    [wsId]="wsId"
+    (close)="closeDetail()"
+    (update)="add()"
+></app-detail-workspace>

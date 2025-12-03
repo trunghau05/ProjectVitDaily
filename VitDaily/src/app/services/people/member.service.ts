@@ -19,12 +19,34 @@ export class MemberService {
     }
   }
 
-  async addMember(data: Member) {
+  async addMembers(data: {ws_id: string, members: Member[]}) {
     try {
       const response = await axios.post(this.apiUrl + 'add/', data);
       return response.data;
+
     } catch (error) {
-      Response.error;
+      console.error("Add members error:", error);
+      throw error;
+    }
+  }
+
+  async updateMembers(data: {ws_id: string, members: Member[]}) {
+    try {
+      const response = await axios.put(this.apiUrl + 'update/', data);
+      return response.data; 
+    } catch (error) {
+      console.error("Update members error:", error);
+      throw error;
+    }
+  }
+
+  async removeMember(ws_id: string, us_id: string) {
+    try {
+      const response = await axios.delete(this.apiUrl + 'delete/' + ws_id + '/' + us_id);
+      return response.data;
+    } catch (error) {
+      console.error("Remove member error:", error);
+      throw error;
     }
   }
 }

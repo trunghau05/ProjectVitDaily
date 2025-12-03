@@ -7,11 +7,15 @@ import { TaskComponent } from './pages/person/task/task.component';
 import { VitaiComponent } from './components/vitai/vitai.component';
 import { WorkspaceComponent } from './pages/people/workspace/workspace.component';
 import { TeamComponent } from './pages/people/team/team.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'vitai', component: VitaiComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
   // Person
   { path: 'note', component: NoteComponent },
@@ -21,6 +25,6 @@ export const routes: Routes = [
   
   // People
   { path: 'workspace', component: WorkspaceComponent },
-  { path: 'team', component: TeamComponent},
+  { path: 'workspace/:ws_id', component: TeamComponent},
 
 ];

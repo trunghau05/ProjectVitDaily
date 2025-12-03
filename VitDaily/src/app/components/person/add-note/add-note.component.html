@@ -1,7 +1,7 @@
 <div class="container flex-center">
     <app-navbar></app-navbar>
 
-    <div class="content">
+    <div class="content" flexCenter>
       <div class="add-note-container">
         <div class="add-note">
             <div flexCenter class="title">
@@ -26,18 +26,6 @@
                         <label for="">Mô tả</label>
                         <div style="margin-top: 10px">
                             <input type="text" placeholder="Nhập mô tả ghi chú" [(ngModel)]="newNote.nt_subtitle">
-                        </div>
-                    </div>
-                    <div class="img-box">
-                        <label for="">Hình ảnh</label>
-                        <div class="img">
-                            <div style="display: flex; gap: 20px; overflow: auto;">
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
-                                <img src="" alt="">
-                            </div>
-                            <input type="file" placeholder="Tải lên hình ảnh">
                         </div>
                     </div>
                 </div>

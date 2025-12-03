@@ -9,9 +9,9 @@ export class VitaiService {
 
     constructor() { }
 
-    async chatVitai(us_input: string) {
+    async chatVitai(us_input: string, us_id: string | null=null) {
         try {
-            const response = await axios.post(this.apiUrl, { us_input: us_input });
+            const response = await axios.post(this.apiUrl, { us_input: us_input, us_id: us_id });
             return response.data;
         } catch (error) {
             throw error;

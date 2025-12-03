@@ -2,6 +2,205 @@
     <app-navbar></app-navbar>
 
     <div class="content">
-        
+        <div class="team-content">
+            <div class="header">
+                <div class="tab" flexCenter>
+                    <div flexCenter class="btn" (click)="toggleList()" [style.background-color]="isList ? 'rgba(1, 47, 95, 1)' : 'white'" [style.border]="isList ? 'none' : '1px solid rgba(126, 126, 126, 0.5)'">
+                        <mat-icon [style.color]="isList ? 'white' : 'black'">dataset</mat-icon>
+                        <span [style.display]="isList ? 'block' : 'none'" [style.color]="isList ? 'white' : 'black'">{{workspace()?.ws_name}}</span>
+                    </div>  
+                </div>
+                <div class="tool" flexCenter style="gap: 20px;">
+                    <div>
+                        <app-search-bar placeholder="Tìm kiếm công việc..." *ngIf="isList"></app-search-bar>
+                    </div>
+                    <div class="ic">
+                        <mat-icon>search</mat-icon>
+                    </div>
+                    <div class="ic" (click)="addTask()">
+                        <mat-icon>add</mat-icon>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="team-container" flexCenter>
+                <div class="task-container">
+                    <div class="task-table" (scroll)="onScroll($event)">
+                        <table>
+                            <thead>
+                                <tr>
+                                <th style="width: 25%;" class="left">Tiêu đề</th>
+                                <th style="width: 20%;" class="left">Mô tả</th>
+                                <th style="width: 15%;" class="center">Được giao</th>
+                                <th style="width: 11%;" class="center">Bắt đầu</th>
+                                <th style="width: 11%;" class="center">Kết thúc</th>
+                                <th style="width: 14%;" class="center">Trạng thái</th>
+                                <th style="width: 5%;" class="center">Tool</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="task-item" *ngFor="let task of displayedTasks()" (click)="detailTask(task.ts_id)">
+                                    <td class="truncate" style="font-weight: 550;">{{task.ts_title}}</td>
+                                    <td class="truncate">{{task.ts_subtitle}}</td>
+                                    <td class="center">
+                                        <div class="assignees" flexCenter>
+                                            <ng-container *ngFor="let a of task.assignees; let i = index">
+                                                <img *ngIf="i < 2" [src]="a.us_img" alt="avatar">
+                                            </ng-container>
+
+                                            <div *ngIf="task.assignees.length > 2" class="more">
+                                                +{{task.assignees.length - 2}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="center">{{task.ts_start | formatDate}}</td>
+                                    <td class="center">{{task.ts_end | formatDate}}</td>
+                                    <td class="center">
+                                        <select
+                                            class="center"
+                                            (click)="$event.stopPropagation()"
+                                            [ngStyle]="{
+                                                'background-color': getBackgroundColor(task.ts_status),
+                                                'color': '#333',
+                                                'padding': '10px',
+                                                'border-radius': '10px',
+                                                'font-size': '11px',
+                                                'border': 'none',
+                                                'cursor': 'pointer'
+                                            }"
+                                            [(ngModel)]="task.ts_status"
+                                            (ngModelChange)="onStatusChange(task, $event)">
+                                        <option [value]="0">{{getStatusText(0)}}</option>
+                                        <option [value]="1">{{getStatusText(1)}}</option>
+                                        <option [value]="2">{{getStatusText(2)}}</option>
+                                    </select>
+                                    </td>
+                                    <td class="center" style="width: 5%;">
+                                        <div class="ic">
+                                        <mat-icon>arrow_drop_down</mat-icon>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="displayedTasks().length < tasks().length">
+                                    <td colspan="7">
+                                        <div class="loading-container">
+                                        <div class="loading-spinner"></div>
+                                        <span class="loading-text">Đang tải</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="team-detail">
+                    <div class="team-list">
+                        <div class="team-item" *ngFor="let team of teams()" (click)="selectTeam(team)" [class.active]="selectedTeam() === team.tm_id">
+                            <div class="team-header">
+                                <div class="team-icon">
+                                    <mat-icon>groups</mat-icon>
+                                </div>
+                                <div class="team-title">
+                                    <h4>{{team.tm_name}}</h4>
+                                    <p>Created at: {{team.created_at | formatDate}}</p>
+                                </div>
+                                <div class="team-count" (click)="disconnectTeam()">
+                                    <mat-icon>link_off</mat-icon>
+                                </div>
+                            </div>
+
+                            <div class="team-expand" *ngIf="selectedTeam() === team.tm_id" (click)="$event.stopPropagation()">
+                                <div class="form-group">
+                                    <label>Thêm thành viên</label>
+                                    <div style="display:flex; gap:20px; align-items:center; margin: 0 0 10px 0;">
+                                        <input type="email" class="form-input add-mem" [(ngModel)]="email" name="memberEmail" placeholder="Nhập email" />
+                                        <input type="text" class="form-input add-role" [(ngModel)]="role" name="memberRole" placeholder="Vai trò" />
+                                    </div>
+                                    <button type="button" class="btn-save" (click)="addUserByEmail()">Thêm</button>
+
+                                    <div class="member-list" *ngIf="members().length > 0">
+                                        <div class="member-scroll">
+                                            <div class="member-card" *ngFor="let m of members(); let i = index"  (click)="removeMember(i)">
+                                                <div class="avatar">
+                                                    <img *ngIf="m.us_img" [src]="m.us_img" alt="avatar" />
+                                                    <span *ngIf="!m.us_img">{{ m.us_name?.[0] | uppercase }}</span>
+                                                </div>
+                                                <div class="info">
+                                                    <span class="name">{{ m.us_name }}</span>
+                                                    <span class="role">{{ m.role }}</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-save" *ngIf="isUpdate" (click)="updateTeam()">Cập nhật nhóm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="team-item" style="height: 40.5px; font-weight: 500; font-size: 14px;" flexCenter (click)="toggleTeam()">
+                            Tạo nhóm mới
+                        </div>
+                        <div class="team-item" style="background-color: #e9e9e9;" *ngIf="isTeam">
+                            <div class="team-header">
+                                <div class="team-icon">
+                                    <mat-icon>groups</mat-icon>
+                                </div>
+                                <div class="team-title">
+                                    <input type="text" placeholder="Nhập tên nhóm" [(ngModel)]="teamName" style="border: none; background: none; font-size: 16px; font-weight: 500">
+                                    <p>Created at: {{today | formatDate}}</p>
+                                </div>
+                                <div class="team-save" (click)="addTeam()">
+                                    <mat-icon>save</mat-icon>
+                                </div>
+                            </div>
+
+                            <div class="team-expand">
+                                <div class="form-group">
+                                    <label>Thêm thành viên</label>
+                                    <div style="display:flex; gap:20px; align-items:center; margin: 0 0 10px 0;">
+                                        <input type="email" class="form-input add-mem" [(ngModel)]="email" name="memberEmail" placeholder="Nhập email" />
+                                        <input type="text" class="form-input add-role" [(ngModel)]="role" name="memberRole" placeholder="Vai trò" />
+                                    </div>
+                                    <button type="button" class="btn-save" (click)="addUserByEmail()">Thêm</button>
+
+                                    <div class="member-list" *ngIf="newMembers().length > 0">
+                                        <div class="member-scroll">
+                                            <div class="member-card" *ngFor="let m of newMembers(); let i = index" (click)="removeMember(i)">
+                                                <div class="avatar">
+                                                    <img *ngIf="m.us_img" [src]="m.us_img" alt="avatar" />
+                                                    <span *ngIf="!m.us_img">{{ m.us_name?.[0] | uppercase }}</span>
+                                                </div>
+                                                <div class="info">
+                                                    <span class="name">{{ m.us_name }}</span>
+                                                    <span class="role">{{ m.role }}</span>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-save" *ngIf="isUpdate" (click)="updateTeam()">Cập nhật nhóm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<app-detail-task 
+  [tsId]="tsId" 
+  (close)="closeDetail()" 
+  (saved)="onTaskSaved($event)" 
+  (deleted)="onTaskDeleted($event)" 
+  [team]="teamSelect"
+  *ngIf="isDetail">
+</app-detail-task>
+
+<app-add-task
+  (close)="closeAdd()"
+  *ngIf="isAdd"
+  [workspace]="workspace"
+  [tsId]="tsId" 
+></app-add-task>

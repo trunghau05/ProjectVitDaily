@@ -11,21 +11,24 @@ from Common.models import User, Verification
 @api_view(['POST'])
 def Register(request):
     try:
+        # Nhận dữ liệu từ client
         name = request.data.get('us_name')
         email = request.data.get('us_email')
         password = request.data.get('us_password')
 
-        #Kiểm tra dữ liệu bắt buộc
-        if not name or not email or not password:
+        # Kiểm tra dữ liệu
+        if not all([name, email, password]):
             return Response({"error": "Thiếu thông tin bắt buộc"}, status=status.HTTP_400_BAD_REQUEST)
 
-        #Kiểm tra email trùng
+        # Kiểm tra email tồn tại
         if User.objects.filter(us_email=email).exists():
             return Response({"error": "Email đã tồn tại"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Tạo user_id tự động
         total_users = User.objects.count()
         new_id = "US" + str(total_users + 1).zfill(3)
 
+        # Tạo user mới
         user = User.objects.create(
             us_id=new_id,
             us_name=name,
@@ -33,6 +36,7 @@ def Register(request):
             us_password=make_password(password)
         )
 
+        # Tạo OTP
         otp_code = str(random.randint(100000, 999999))
         start_time = timezone.now()
         end_time = start_time + timedelta(minutes=5)
@@ -45,23 +49,23 @@ def Register(request):
             vc_status=False
         )
 
+        # Gửi email OTP
         try:
             send_mail(
-                subject="Mã OTP xác minh tài khoản",
-                message=f"Xin chào {name},\n\nMã OTP xác minh tài khoản của bạn là: {otp_code}\nMã có hiệu lực trong 5 phút.",
-                from_email="hoang7620345@gmail.com",  # Thay bằng email gửi thực tế
-                recipient_list=[email],
+                "Mã OTP xác minh tài khoản",
+                f"Xin chào {name},\n\nMã OTP của bạn là: {otp_code}\nCó hiệu lực trong 5 phút.",
+                "hoang7620345@gmail.com",
+                [email],
                 fail_silently=False,
             )
         except Exception as mail_error:
-            # Nếu gửi mail lỗi thì vẫn giữ user, nhưng báo lỗi
             return Response({
-                "message": "Đăng ký thành công nhưng gửi OTP qua email thất bại.",
+                "message": "Đăng ký thành công nhưng gửi OTP thất bại.",
                 "error": str(mail_error)
             }, status=status.HTTP_201_CREATED)
 
         return Response({
-            "message": "Đăng ký thành công, vui lòng kiểm tra email để xác minh OTP",
+            "message": "Đăng ký thành công. Vui lòng kiểm tra email để xác minh OTP.",
             "user_id": user.us_id
         }, status=status.HTTP_201_CREATED)
 

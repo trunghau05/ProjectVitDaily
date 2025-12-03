@@ -36,4 +36,23 @@ export class WorkspaceService {
       Response.error;
     }
   }
+
+  async getWorkspaceDetail(ws_id: string | null) {
+    try {
+      const response = await axios.get(this.apiUrl + 'detail/' + '?ws_id=' + ws_id);
+      return response.data;
+    } catch (error) {
+      Response.error;
+    }
+  }
+
+  async updateWorkspace(data: WorkSpace) {
+    try {
+      const response = await axios.put(this.apiUrl + 'update/', data);
+      return response.data;
+    } catch (error) {
+      Response.error;
+    }   
+  }
+
 }

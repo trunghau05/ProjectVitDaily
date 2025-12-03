@@ -10,29 +10,31 @@ import { WorkSpace, Member } from '../../../models/people/workspace.interface';
 import { FormatDatePipe } from '../../../pipes/format-date/format-date.pipe';
 import { UserService } from '../../../services/user.service';
 import { AddWorkspaceComponent } from '../../../components/people/add-workspace/add-workspace.component';
+import { DetailWorkspaceComponent } from '../../../components/people/detail-workspace/detail-workspace.component';
 
 @Component({
   selector: 'app-workspace',
-  imports: [NavbarComponent, CommonModule, FormsModule, SearchBarComponent, MatIconModule, FlexCenterDirective, FormatDatePipe, AddWorkspaceComponent],
+  imports: [NavbarComponent, CommonModule, FormsModule, SearchBarComponent, MatIconModule, FlexCenterDirective, FormatDatePipe, AddWorkspaceComponent, DetailWorkspaceComponent],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'
 })
 export class WorkspaceComponent implements OnInit {
   usId: string | null = sessionStorage.getItem('us_id');
   isAdd: boolean = false;
+  isDetail: boolean = false;
 
   ownerWorkspaces: WorkSpace[] = [];
   memberWorkspaces: WorkSpace[] = [];
   workspaces: WorkSpace[] = [];
 
-  images: { us_id: string, img: string }[] = [];
+  imgs:  any[] = [];
   members: Member[] = [];
-  memberImageMap: { [us_id: string]: string } = {};
+  wsId = '';
 
   constructor(private workspaceService: WorkspaceService, private userService: UserService) {}
 
   ngOnInit() {
-      this.loadWorkspace(); 
+    this.loadWorkspace(); 
   }
 
   async loadWorkspace() {
@@ -44,62 +46,29 @@ export class WorkspaceComponent implements OnInit {
     try {
       const response = await this.workspaceService.getWorkspaceOwner(this.usId);
       this.ownerWorkspaces = response.data;
-      console.log(this.ownerWorkspaces);
     } catch (error) {
-      console.error("Lỗi khi lấy sách Workspaces:", error);
+      console.error("Lỗi khi lấy workspace owner:", error);
     }
 
     try {
       const response = await this.workspaceService.getWorkspaceMember(this.usId);
       this.memberWorkspaces = response.data;
-      console.log(this.memberWorkspaces);
     } catch (error) {
-      console.error("Lỗi khi lấy sách Workspaces:", error);
+      console.error("Lỗi khi lấy workspace member:", error);
     }
 
     this.workspaces = [...this.ownerWorkspaces, ...this.memberWorkspaces];
-    this.members = this.workspaces
-    .flatMap((m) => m.members ?? [])
-    .filter((m): m is Member => m !== undefined && m !== null);
-
-    await this.loadMemberImages();
-  }
-
-  async loadMemberImages() {
-    try {
-      const imagesData = await Promise.all(
-        this.members.map(async (m) => {
-          try {
-            const response = await this.userService.userInfo(m.us_id);            
-            return {
-              us_id: m.us_id,
-              img: response.us_img || '/assets/default-avatar.png'
-            };
-          } catch (error) {
-            console.error(`Lỗi khi lấy ảnh của ${m.us_id}:`, error);
-            return {
-              us_id: m.us_id,
-              img: '/assets/default-avatar.png'
-            };
-          }
-        })
-      );
-      this.images = imagesData;
-      this.memberImageMap = {};
-      this.images.forEach(img => {
-        this.memberImageMap[img.us_id] = img.img;
-      });
-      console.log("Danh sách ảnh members:", this.images);
-    } catch (error) {
-      console.error("Lỗi khi load danh sách ảnh members:", error);
-    }
+    console.log(this.workspaces);
+    
+    this.members = this.workspaces.flatMap((m) => m.members ?? []);
   }
 
   getMemberImagesByWorkspace(workspace: WorkSpace): string[] {
     if (!workspace.members) return [];
+    
     return workspace.members
       .slice(0, 3)
-      .map(m => this.memberImageMap[m.us_id] || '/assets/default-avatar.png')
+      .map(m => m.us_img || '/assets/default-avatar.png')
       .filter(img => img !== undefined);
   }
 
@@ -111,4 +80,17 @@ export class WorkspaceComponent implements OnInit {
     this.isAdd = false;
   }
   
+  add() {
+    this.ngOnInit();
+  }
+
+  closeDetail() {
+    this.isDetail = false;
+  }
+
+  openDetail(ws_id: string) {
+    this.wsId = ws_id;
+    
+    this.isDetail = true;
+  }
 }

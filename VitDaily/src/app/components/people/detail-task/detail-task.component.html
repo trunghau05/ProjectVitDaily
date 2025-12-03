@@ -1,0 +1,119 @@
+<div class="popup-overlay"></div>
+
+<div class="task-detail-slide">
+  <div class="slide-header">
+    <button class="close-btn" (click)="closeDetail()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <input
+      type="text"
+      class="title"
+      [(ngModel)]="task.ts_title"
+      name="title"
+      placeholder="e.g. Học tiếng Anh"
+    />
+    <button class="focus-btn" (click)="focusTask()">
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+  </div>
+
+  <div class="task-detail-container">
+    <form class="task-form">
+      <div class="form-group">
+        <label>Ngày bắt đầu</label>
+        <input
+          type="date"
+          class="form-input"
+          [(ngModel)]="task.ts_start"
+          name="start"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Ngày kết thúc</label>
+        <input
+          type="date"
+          class="form-input"
+          [(ngModel)]="task.ts_end"
+          name="end"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Ghi chú</label>
+        <textarea
+          class="form-textarea"
+          [(ngModel)]="task.ts_note"
+          name="note"
+          placeholder="Không có ghi chú"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Mô tả</label>
+        <textarea
+          class="form-textarea"
+          [(ngModel)]="task.ts_subtitle"
+          name="subtitle"
+          placeholder="Không có mô tả"
+        ></textarea>
+      </div>
+
+      <div class="form-group member-section">
+        <label class="member-title">Được giao</label>
+
+        <div class="member-list">
+          <div class="member-item" 
+            *ngFor="let m of task.assignees" 
+            (click)="removeAssignee(m)">
+            <img class="member-avatar" [src]="m.us_img" />
+            <div class="member-info">
+              <span class="member-name">{{ m.us_name }}</span>
+              <span class="member-role">{{ m.role }}</span>
+            </div>
+          </div>
+
+          <div class="member-item">
+            <div class="member-info" style="text-align: center">
+              <span class="member-name" (click)="toggleMem()">Thêm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group member-section" *ngIf="isMem">
+        <label class="member-title">Thành viên</label>
+
+        <div class="member-list">
+          <div class="member-item" 
+              *ngFor="let m of team.members" 
+              (click)="addAssignee(m)">
+            <img class="member-avatar" [src]="m.us_img" />
+            <div class="member-info">
+              <span class="member-name">{{ m.us_name }}</span>
+              <span class="member-role">{{ m.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Trạng thái</label>
+        <select class="form-select" [(ngModel)]="task.ts_status" name="status">
+          <option [value]="0">Chưa bắt đầu</option>
+          <option [value]="1">Đang tiến hành</option>
+          <option [value]="2">Đã hoàn thành</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-save" (click)="saveTask()">
+          Lưu công việc
+        </button>
+        <button type="button" class="btn-delete" (click)="deleteTask()">
+          Xóa
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

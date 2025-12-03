@@ -1,7 +1,7 @@
 from django.db import transaction
 from Common.models import User, Feedback, History
 
-def save_feedback(user_input, intent, ai_output, us_id="US001"):
+def save_feedback(user_input, intent, ai_output, us_id):
     if intent != "feedback":
         return None
 
@@ -30,8 +30,7 @@ def save_feedback(user_input, intent, ai_output, us_id="US001"):
 
     return feedback
 
-
-def get_feedback_user_inputs(us_id="US001"):
+def get_feedback_user_inputs(us_id):
     try:
         user = User.objects.get(us_id=us_id)
     except User.DoesNotExist:
@@ -41,8 +40,7 @@ def get_feedback_user_inputs(us_id="US001"):
     feedback_texts = qs.values_list('feedback_text', flat=True)
     return list(feedback_texts)
 
-
-def save_history(user_input, intent, ai_output, us_id="US001"):
+def save_history(user_input, intent, ai_output, us_id):
     try:
         user = User.objects.get(us_id=us_id)
     except User.DoesNotExist:
@@ -50,7 +48,6 @@ def save_history(user_input, intent, ai_output, us_id="US001"):
 
     with transaction.atomic():
         last_history = History.objects.order_by('-ht_id').first()
-
         if last_history and last_history.ht_id.startswith("HT"):
             last_number = int(last_history.ht_id[2:])
             new_number = last_number + 1
@@ -58,7 +55,6 @@ def save_history(user_input, intent, ai_output, us_id="US001"):
             new_number = 1
 
         new_ht_id = f"HT{new_number:03d}"
-
         history = History.objects.create(
             ht_id=new_ht_id,
             user_input=user_input,
@@ -69,28 +65,24 @@ def save_history(user_input, intent, ai_output, us_id="US001"):
 
     return history
 
-
-def get_last_user_input(us_id="US001", max_n=20):
+def get_last_user_input(us_id, max_n=20):
     try:
         user = User.objects.get(us_id=us_id)
     except User.DoesNotExist:
         raise ValueError(f"User {us_id} không tồn tại")
 
     qs = History.objects.filter(us=user).order_by('-created_at')
-    
     last_inputs = list(qs[:max_n])
 
     if qs.count() > max_n:
-        keep_ids = [h.id for h in last_inputs]  
-        History.objects.filter(us=user).exclude(id__in=keep_ids).delete()
+        keep_ids = [h.ht_id for h in last_inputs]  
+        History.objects.filter(us=user).exclude(ht_id__in=keep_ids).delete()
 
     if not last_inputs:
         return ""
-    
+
     history_text = "\n".join(
         f"User: {h.user_input}\nVitAi: {h.ai_output}"
         for h in reversed(last_inputs)
     )
-    
-    print(history_text)
     return history_text

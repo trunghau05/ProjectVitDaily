@@ -1,1 +1,64 @@
-<p>register works!</p>
+<div class="register-container" flexCenter>
+  <div class="register">
+
+    <div class="info flex-center">
+      <div class="info-content">
+        <h1>Chào mừng đến với <span>VitDaily</span></h1>
+        <p>Nơi bạn có thể quản lý ghi chú, theo dõi công việc hằng ngày, lên kế hoạch dài hạn và tối ưu hiệu suất cá nhân.</p>
+        <p>Hãy bắt đầu hành trình làm việc thông minh hơn ngay hôm nay!</p>
+      </div>
+    </div>
+
+    <div class="register-popup">
+      <h2>Đăng ký tài khoản</h2>
+
+      <div *ngIf="!showOtpPopup" class="input">
+        <div class="item">
+          <label>Họ & Tên</label>
+          <input type="text" placeholder="Nguyễn Văn A" [(ngModel)]="name">
+        </div>
+
+        <div class="item">
+          <label>Email</label>
+          <input type="email" placeholder="abc@gmail.com" [(ngModel)]="email">
+        </div>
+
+        <div class="item">
+          <label>Mật khẩu</label>
+          <input type="password" placeholder="••••••••" [(ngModel)]="password">
+        </div>
+
+        <div class="item">
+          <label>Nhập lại mật khẩu</label>
+          <input type="password" placeholder="••••••••" [(ngModel)]="confirmPassword">
+        </div>
+
+        <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+
+        <button class="btn-register" (click)="register()" [disabled]="loading">
+          {{ loading ? 'Đang đăng ký...' : 'Đăng ký' }}
+        </button>
+      </div>
+
+      <div class="otp-popup-overlay" *ngIf="showOtpPopup">
+        <div class="otp-popup">
+          <h3>Nhập mã OTP đã gửi tới email</h3>
+          <input type="text" placeholder="Nhập OTP" [(ngModel)]="otp">
+
+          <button (click)="verifyOtp()" [disabled]="loading">
+            {{ loading ? 'Đang xác minh...' : 'Xác minh OTP' }}
+          </button>
+
+          <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+          <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+        </div>
+      </div>
+
+      <div class="login-link">
+        Đã có tài khoản? <a href="/login">Đăng nhập</a>
+      </div>
+    </div>
+
+  </div>
+</div>

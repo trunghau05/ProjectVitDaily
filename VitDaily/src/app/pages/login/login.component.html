@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="login-container" flexCenter>
+  <div class="login">
+
+    <div class="login-info flex-center">
+      <div class="login-info-content">
+        <h1>Chào mừng trở lại <span>VitDaily</span></h1>
+        <p>Quản lý ghi chú và công việc hằng ngày dễ dàng hơn, lên kế hoạch dài hạn và tối ưu hiệu suất cá nhân.</p>
+        <p>Đăng nhập để tiếp tục trải nghiệm và hoàn thành công việc hiệu quả.</p>
+      </div>
+    </div>
+
+    <div class="login-popup">
+      <h2>Đăng nhập tài khoản</h2>
+
+      <div class="login-input">
+        <div class="item">
+          <label>Email</label>
+          <input type="email" placeholder="abc@gmail.com" [(ngModel)]="email">
+        </div>
+
+        <div class="item">
+          <label>Mật khẩu</label>
+          <input type="password" placeholder="••••••••" [(ngModel)]="password">
+        </div>
+
+        <div class="remember-box">
+          <input type="checkbox" id="remember" [(ngModel)]="remember">
+          <label for="remember">Ghi nhớ mật khẩu</label>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+      <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+
+      <button class="btn-login" (click)="login()" [disabled]="loading">
+        {{ loading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+      </button>
+
+      <div class="register-link">
+        Chưa có tài khoản? <a href="/register">Đăng ký</a>
+      </div>
+    </div>
+  </div>
+</div>
